@@ -27,6 +27,7 @@ Vue.use(ElementUI);
 Vue.component('navt', require('./components/navs/Nav.vue').default);
 Vue.component('navl', require('./components/navs/NavLeft.vue').default);
 
+Vue.component('login', require('./components/index/login.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
