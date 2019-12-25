@@ -9,7 +9,7 @@
           <label for="password">Contraseña</label>
           <el-input placeholder="Please input password" v-model="model.password" show-password></el-input>
           <br><br>
-          <button type="button" class="btn btn-primary btn-block">Ingresar</button>
+          <button type="button" class="btn btn-primary btn-block" @click="ingresar">Ingresar</button>
         </div>
         <div class="card-footer text-muted text-center">
           Recuerda cambiar la contraseña periodicamente
@@ -23,10 +23,16 @@
 export default {
   data(){
     return {
+      route: 'api/index/',
       model: {
         name: '',
         password: ''
-      }
+      },
+    };
+  },
+  methods: {
+    ingresar(){
+      axios.post(`${this.route}ingresar`,this.model)
     }
   }
 }
