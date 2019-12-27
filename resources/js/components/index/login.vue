@@ -31,10 +31,8 @@ export default {
     };
   },
   methods: {
-    async ingresar(){
-      await axios.post(`${this.route}ingresar`,this.model).then(function (response){
-        this.model.password = ''
-      })
+    ingresar(){
+      axios.post(`${this.route}ingresar`, this.model)
     }
   }
 }
