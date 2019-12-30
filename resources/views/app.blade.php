@@ -15,11 +15,7 @@
             <div class="row">
                 <navl></navl>
                 <div class="pl-4 col-sm">
-                  @if(Auth::check() == false)
-                    <login></login>
-                  @else
-                    <h1>ud esta logueado</h1>
-                  @endif
+                    <router-view></router-view>
                 </div>
             </div>
         </div>
