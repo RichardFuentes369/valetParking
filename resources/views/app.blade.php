@@ -9,7 +9,9 @@
 </head>
 <body>
     <div id="app">
-        <navt></navt>
+        <navi></navi>
+        {{-- <navs></navs> --}}
+        {{-- <nave></nave> --}}
         <br>
         <div class="col-sm-12">
             <div class="row">

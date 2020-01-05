@@ -82,12 +82,14 @@ export default {
     methods: {
         informacionEmpresa() {
             axios.get(`${this.route}informacion`).then(res => {
-                this.model.direccion = res.data.direccion,
-                    this.model.barrio = res.data.barrio,
-                    this.model.ciudad = res.data.ciudad,
-                    this.model.pais = res.data.pais,
-                    this.model.telefono = res.data.telefono,
-                    this.model.ubicacion_gps = res.data.ubicacion_gps
+              this.model = {
+                direccion = res.data.direccion,
+                barrio = res.data.barrio,
+                ciudad = res.data.ciudad,
+                pais = res.data.pais,
+                telefono = res.data.telefono,
+                ubicacion_gps = res.data.ubicacion_gps
+              }
             })
         }
     }
