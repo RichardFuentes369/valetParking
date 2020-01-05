@@ -27,4 +27,13 @@ class LoginController extends Controller
       return $e;
     }
   }
+
+  public function salir(){
+    try {
+      Auth::logout();
+      return 'saliendo del sistema';
+    } catch (\Exception $e) {
+      return $e;
+    }
+  }
 }

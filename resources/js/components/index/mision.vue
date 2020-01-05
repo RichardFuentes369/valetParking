@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     mision(){
-      axios.get(`${this.route}mision-vision`).then(res => {
+      axios.get(`${this.route}informacion`).then(res => {
         this.model.mision = res.data.mision,
         this.model.vision = res.data.vision
       })

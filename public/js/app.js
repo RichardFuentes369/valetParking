@@ -3479,20 +3479,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({// data(){
-  //   return {
-  //     route: 'api/index/',
-  //     model: {
-  //       name: '',
-  //       password: ''
-  //     },
-  //   };
-  // },
-  // methods: {
-  //   ingresar(){
-  //     axios.post(`${this.route}mision`, this.model)
-  //   }
-  // }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      route: 'api/index/',
+      model: {
+        direccion: '',
+        barrio: '',
+        ciudad: '',
+        pais: '',
+        telefono: '',
+        ubicacion_gps: ''
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.informacionEmpresa();
+  },
+  methods: {
+    informacionEmpresa: function informacionEmpresa() {
+      var _this = this;
+
+      axios.get("".concat(this.route, "informacion")).then(function (res) {
+        _this.model.direccion = res.data.direccion, _this.model.barrio = res.data.barrio, _this.model.ciudad = res.data.ciudad, _this.model.pais = res.data.pais, _this.model.telefono = res.data.telefono, _this.model.ubicacion_gps = res.data.ubicacion_gps;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -3589,7 +3651,7 @@ __webpack_require__.r(__webpack_exports__);
     mision: function mision() {
       var _this = this;
 
-      axios.get("".concat(this.route, "mision-vision")).then(function (res) {
+      axios.get("".concat(this.route, "informacion")).then(function (res) {
         _this.model.mision = res.data.mision, _this.model.vision = res.data.vision;
       });
     }
@@ -100088,25 +100150,128 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c("h5", { staticClass: "card-title text-center" }, [
+          _vm._v("Contactenos")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "col-sm-12" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("table", { staticClass: "table" }, [
+                  _c("tr", [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("label", { attrs: { for: "" } }, [
+                        _c("h5", [_vm._v(_vm._s(_vm.model.pais))])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("label", { attrs: { for: "" } }, [
+                        _c("h5", [_vm._v(_vm._s(_vm.model.ciudad))])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("label", { attrs: { for: "" } }, [
+                        _c("h5", [_vm._v(_vm._s(_vm.model.barrio))])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("label", { attrs: { for: "" } }, [
+                        _c("h5", [_vm._v(_vm._s(_vm.model.direccion))])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("label", { attrs: { for: "" } }, [
+                        _c("h5", [_vm._v(_vm._s(_vm.model.telefono))])
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("iframe", {
+                  staticStyle: { border: "0" },
+                  attrs: {
+                    src: _vm.model.ubicacion_gps,
+                    width: "500",
+                    height: "300",
+                    frameborder: "0",
+                    allowfullscreen: ""
+                  }
+                })
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title text-center" }, [
-            _vm._v("Contactenos")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._v("\n        direcciones\n      ")
-          ])
-        ])
-      ])
+    return _c("td", [
+      _c("label", { attrs: { for: "" } }, [_c("h5", [_vm._v("Pais")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("label", { attrs: { for: "" } }, [_c("h5", [_vm._v("Ciudad")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("label", { attrs: { for: "" } }, [_c("h5", [_vm._v("Barrio")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("label", { attrs: { for: "" } }, [_c("h5", [_vm._v("Dirección")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("label", { attrs: { for: "" } }, [_c("h5", [_vm._v("Telefono")])])
     ])
   }
 ]
@@ -100189,7 +100354,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-footer text-muted text-center" }, [
           _vm._v(
-            "\n        Recuerda cambiar la contraseña periodicamente\n      "
+            "\r\n                Recuerda cambiar la contraseña periodicamente\r\n            "
           )
         ])
       ])
@@ -115701,14 +115866,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*******************************************************!*\
   !*** ./resources/js/components/index/contactenos.vue ***!
   \*******************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _contactenos_vue_vue_type_template_id_7afa27f5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./contactenos.vue?vue&type=template&id=7afa27f5&scoped=true& */ "./resources/js/components/index/contactenos.vue?vue&type=template&id=7afa27f5&scoped=true&");
 /* harmony import */ var _contactenos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./contactenos.vue?vue&type=script&lang=js& */ "./resources/js/components/index/contactenos.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _contactenos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _contactenos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -115738,7 +115904,7 @@ component.options.__file = "resources/js/components/index/contactenos.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/index/contactenos.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

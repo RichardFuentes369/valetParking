@@ -8,7 +8,7 @@ use App\Models\informacion_empresa;
 
 class InformacionEmpresaController extends Controller
 {
-    public function MisionVision(){
+    public function informacion(){
       try {
           $consulta = informacion_empresa::first();
           return $consulta;
