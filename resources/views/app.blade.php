@@ -9,13 +9,16 @@
 </head>
 <body>
     <div id="app">
+        {{-- si no esta logueado muestro --}}
         <navi></navi>
+        {{-- si esta logueado muestro --}}
         {{-- <navs></navs> --}}
-        {{-- <nave></nave> --}}
         <br>
         <div class="col-sm-12">
             <div class="row">
-                <navl></navl>
+              {{-- si esta logueado muestro --}}
+                {{-- <navla></navla> --}}
+                {{-- <navle></navle> --}}
                 <div class="pl-4 col-sm">
                     <router-view></router-view>
                 </div>
