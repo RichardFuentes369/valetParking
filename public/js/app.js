@@ -3601,7 +3601,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       route: 'api/index/',
       model: {
-        name: '',
+        email: '',
         password: ''
       }
     };
@@ -101010,11 +101010,11 @@ var render = function() {
             _c("el-input", {
               attrs: { placeholder: "Please input" },
               model: {
-                value: _vm.model.name,
+                value: _vm.model.email,
                 callback: function($$v) {
-                  _vm.$set(_vm.model, "name", $$v)
+                  _vm.$set(_vm.model, "email", $$v)
                 },
-                expression: "model.name"
+                expression: "model.email"
               }
             }),
             _vm._v(" "),
@@ -101207,7 +101207,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "nav-link",
+                      staticClass: "nav-link text-white ",
                       attrs: { to: { name: "mision" } }
                     },
                     [_vm._v("Misión/Visión")]
@@ -101223,7 +101223,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "nav-link",
+                      staticClass: "nav-link text-white ",
                       attrs: { to: { name: "contactenos" } }
                     },
                     [_vm._v("Contactenos")]
@@ -101239,7 +101239,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "nav-link",
+                      staticClass: "nav-link text-white ",
                       attrs: { to: { name: "programadores" } }
                     },
                     [_vm._v("Programadores")]

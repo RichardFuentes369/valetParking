@@ -5,7 +5,7 @@
             <h5 class="card-title text-center">Iniciar Seccion</h5>
             <div class="card-body">
                 <label for="name">Correo</label>
-                <el-input placeholder="Please input" v-model="model.name"></el-input>
+                <el-input placeholder="Please input" v-model="model.email"></el-input>
                 <label for="password">Contraseña</label>
                 <el-input placeholder="Please input password" v-model="model.password" show-password></el-input>
                 <br><br>
@@ -25,7 +25,7 @@ export default {
         return {
             route: 'api/index/',
             model: {
-                name: '',
+                email: '',
                 password: ''
             },
         };
