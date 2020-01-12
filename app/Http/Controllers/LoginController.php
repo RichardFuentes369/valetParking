@@ -23,7 +23,7 @@ class LoginController extends Controller
                   'password' => 'required|string'
               ]);
             if (Auth::attempt($credentials)) {
-              return redirect()->intended('/');
+              return 'estas logeado';
             } else {
               return 'error en el auth::attempt';
             }
@@ -39,27 +39,9 @@ class LoginController extends Controller
     }
   }
 
-
-
-
-  // public function ingresar(Request $request){
-  //   try {
-  //     // DB::transaction(function () {
-  //       $consulta = usuarios::where('correo',$request->name)->first();
-  //       if ($consulta){
-  //         if(Hash::check($request->password, $consulta->contrasena)){
-  //
-  //           return 'logeado';
-  //         } else {
-  //           return 'la contrasena es incorrecta';
-  //         }
-  //       } else {
-  //         return 'el correo no existe';
-  //       }
-  //     // }, 5);
-  //   } catch (\Exception $e) {
-  //     return $e;
-  //   }
+  // public function __construct()
+  // {
+  //     $this->middleware('auth');
   // }
 
   public function salir(){

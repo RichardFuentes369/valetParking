@@ -23,13 +23,13 @@
         <div class="col-sm-12">
             <div class="row">
                 {{-- si esta logueado muestro dependiendo del perfil--}}
-                {{-- @if(Auth::check() == true)
-                  @if(Auth::user()->profile == 'admin')
+                @if(Auth::check() == true)
+                  @if(Auth::user()->id_rol == 1)
                     <navla></navla>
                   @else
                     <navle></navle>
                   @endif
-                @endif --}}
+                @endif
                 <div class="pl-4 col-sm">
                     <router-view></router-view>
                 </div>
