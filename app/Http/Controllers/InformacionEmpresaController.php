@@ -13,7 +13,7 @@ class InformacionEmpresaController extends Controller
           $consulta = informacion_empresa::first();
           return $consulta;
       } catch (\Exception $e) {
-
+          return $e;
       }
     }
 }

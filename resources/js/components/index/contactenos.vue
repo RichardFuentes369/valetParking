@@ -10,42 +10,62 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <label for=""><h5>Pais</h5></label>
+                                        <label for="">
+                                            <h5>Pais</h5>
+                                        </label>
                                     </td>
                                     <td>
-                                        <label for=""><h5>{{model.pais}}</h5></label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label for=""><h5>Ciudad</h5></label>
-                                    </td>
-                                    <td>
-                                        <label for=""><h5>{{model.ciudad}}</h5></label>
+                                        <label for="">
+                                            <h5>{{model.pais}}</h5>
+                                        </label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for=""><h5>Barrio</h5></label>
+                                        <label for="">
+                                            <h5>Ciudad</h5>
+                                        </label>
                                     </td>
                                     <td>
-                                        <label for=""><h5>{{model.barrio}}</h5></label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label for=""><h5>Dirección</h5></label>
-                                    </td>
-                                    <td>
-                                        <label for=""><h5>{{model.direccion}}</h5></label>
+                                        <label for="">
+                                            <h5>{{model.ciudad}}</h5>
+                                        </label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for=""><h5>Telefono</h5></label>
+                                        <label for="">
+                                            <h5>Barrio</h5>
+                                        </label>
                                     </td>
                                     <td>
-                                        <label for=""><h5>{{model.telefono}}</h5></label>
+                                        <label for="">
+                                            <h5>{{model.barrio}}</h5>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">
+                                            <h5>Dirección</h5>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="">
+                                            <h5>{{model.direccion}}</h5>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">
+                                            <h5>Telefono</h5>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="">
+                                            <h5>{{model.telefono}}</h5>
+                                        </label>
                                     </td>
                                 </tr>
                             </table>
@@ -82,14 +102,14 @@ export default {
     methods: {
         informacionEmpresa() {
             axios.get(`${this.route}informacion`).then(res => {
-              this.model = {
-                direccion: res.data.direccion,
-                barrio: res.data.barrio,
-                ciudad: res.data.ciudad,
-                pais: res.data.pais,
-                telefono: res.data.telefono,
-                ubicacion_gps: res.data.ubicacion_gps
-              }
+                this.model = {
+                    direccion: res.data.direccion,
+                    barrio: res.data.barrio,
+                    ciudad: res.data.ciudad,
+                    pais: res.data.pais,
+                    telefono: res.data.telefono,
+                    ubicacion_gps: res.data.ubicacion_gps
+                }
             })
         }
     }

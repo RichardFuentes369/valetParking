@@ -11,5 +11,12 @@ use App\Models\usuarios;
 
 class UserController extends Controller
 {
-
+  public function lista(){
+    try {
+      $consulta = usuarios::with('rol')->get();
+      return $consulta;
+    } catch (\Exception $e) {
+        return $e;
+    }
+  }
 }

@@ -10,4 +10,5 @@ class roles extends Model
 {
       use SoftDeletes;
       protected $table = "roles";
+      
 }
