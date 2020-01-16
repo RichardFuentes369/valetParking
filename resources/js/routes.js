@@ -12,8 +12,7 @@ import Precios from './components/super/precios'
 import Descuentos from './components/super/descuentos'
 import Iva from './components/super/iva'
 import Informacion from './components/super/informacion'
-import Roles from './components/super/roles'
-import Usuarios from './components/super/usuarios'
+import Rol from './components/super/rol'
 import Facturas from './components/super/facturas'
 import Periodos from './components/super/periodos'
 import Empleados from './components/super/empleados'
@@ -64,14 +63,9 @@ export default new Router({
       component: Informacion
     },
     {
-      path: '/roles',
-      name: 'roles',
-      component: Roles
-    },
-    {
-      path: '/usuarios',
-      name: 'usuarios',
-      component: Usuarios
+      path: '/rol',
+      name: 'rol',
+      component: Rol
     },
     {
       path: '/facturas',

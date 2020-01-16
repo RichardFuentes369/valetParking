@@ -10,7 +10,8 @@ class RolesController extends Controller
 {
     public function lista(){
       try {
-          $consulta = roles::get();
+          // $consulta = roles::get();
+          $consulta = roles::with('tengoUsuarios')->get();
           return $consulta;
       } catch (\Exception $e) {
           return $e;

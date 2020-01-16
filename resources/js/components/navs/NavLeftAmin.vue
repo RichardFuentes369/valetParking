@@ -11,11 +11,8 @@
                 <i class="el-icon-user"></i>
                 <span slot="title">Configurar</span>
             </template>
-            <el-menu-item index="1-1">
-                <router-link :to="{ name: 'roles'}" class="nav-link">Roles</router-link>
-            </el-menu-item>
             <el-menu-item index="1-3">
-                <router-link :to="{ name: 'usuarios'}" class="nav-link">Usuarios</router-link>
+                <router-link :to="{ name: 'rol'}" class="nav-link">Roles</router-link>
             </el-menu-item>
         </el-submenu>
         <!-- pagos -->
