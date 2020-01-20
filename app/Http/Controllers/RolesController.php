@@ -29,4 +29,13 @@ class RolesController extends Controller
         return $e;
       }
     }
+
+    public function eliminar($id){
+      try {
+        $eliminar_registro = roles::find($id);
+        $eliminar_registro->delete();
+      } catch (\Exception $e) {
+          return $e;
+      }
+    }
 }

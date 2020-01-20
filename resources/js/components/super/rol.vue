@@ -3,15 +3,20 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title text-center">Roles</h5>
+            <p class="text-center">falta editar y eliminar a los usuarios</p>
             <div class="d-flex justify-content-end">
                 <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearRol"></el-button>
             </div>
+            <br>
             <div class="card-body">
                 <div class="row mt-xl-n5">
                     <div v-for="rol in roles" class="card mx-3" style="width: 18rem">
                         <div class="card-body">
                             <el-tooltip class="item" effect="dark" content="Cantidad de usuarios" placement="bottom-end">
                                 <span class="card-text cantidad">{{rol.tengo_usuarios.length}}</span>
+                            </el-tooltip>
+                            <el-tooltip class="item" effect="dark" content="Eliminar este rol" placement="bottom-end">
+                                <el-button type="danger" class="eliminarcard" icon="el-icon-delete" circle @click="eliminarRol(rol.id)" />
                             </el-tooltip>
                             <h5 class="card-title text-lg-left">{{rol.nombre}}</h5>
                             <h4 class="card-text text-center text-muted">{{rol.descripcion}}</h4>
@@ -222,8 +227,24 @@ export default {
         },
         async crear_rol() {
             await axios.post(`${this.route}crear-rol`, this.model)
+            this.$notify({
+                title: 'Success',
+                message: 'Rol creado exitosamente',
+                type: 'success'
+            });
             this.lista_roles()
             $('#CrearRol').modal('hide')
+            this.model = []
+        },
+        async actualizar_rol() {
+            await axios.post(`${this.route}actualizar-rol`, this.model)
+            this.$notify({
+                title: 'Success',
+                message: 'Rol actualizado exitosamente',
+                type: 'success'
+            });
+            this.lista_roles()
+            this.model = []
         },
         mostrarUsuarios(id_rol) {
             this.usuarios = this.roles.find(({
@@ -235,9 +256,23 @@ export default {
         },
         async crear_usuario() {
             await axios.post(`${this.route2}crear-usuario`, this.model2)
+            this.$notify({
+                title: 'Success',
+                message: 'Usuario Creado exitosamente',
+                type: 'success'
+            });
             this.lista_roles()
             $('#CrearUsuarios').modal('hide')
             this.model2 = []
+        },
+        async eliminarRol(id) {
+            await axios.delete(`${this.route}${id}/eliminar-rol`)
+            this.lista_roles()
+            this.$notify({
+                title: 'Success',
+                message: 'Se elimino el rol correctamente',
+                type: 'success'
+            });
         }
     }
 }
@@ -255,6 +290,12 @@ export default {
   background-color: #a21414;
   box-shadow: -3px -1px 5px 0px black;
   text-shadow: -2px 1px 20px black;
+}
+.eliminarcard {
+  color: white;
+  position: absolute;
+  top: -10%;
+  right: 92%;
 }
 .scroll-y{
   height: 300px;

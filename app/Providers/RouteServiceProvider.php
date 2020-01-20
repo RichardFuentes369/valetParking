@@ -82,6 +82,7 @@ class RouteServiceProvider extends ServiceProvider
                  require base_path('routes/api/roles.php');
                  require base_path('routes/api/usuarios.php');
                  require base_path('routes/api/facturas.php');
+                 require base_path('routes/api/impuesto_valor_agregado.php');
              });
     }
 }
