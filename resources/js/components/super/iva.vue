@@ -12,11 +12,15 @@
                     <div v-for="iva in iva" class="card mx-3" style="width: 18rem">
                         <div class="card-body">
                             <h4 class="card-text text-center text-muted">{{iva.anho}}</h4>
-                            <p class="text-center">{{iva.porcentaje}}%</p>
-                            <p class="text-center">{{iva.created_at | fecha}}</p>
-                            <el-tooltip class="item" effect="dark" content="Editar IVA" placement="bottom-end">
-                                <el-button type="warning" class="editar" icon="el-icon-edit" circle />
+                            <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
+                              <div class="input-group mb-3">
+                                <input type="text" v-model="iva.porcentaje" class="ml-auto alert-link text-center form-control" @change="actualizar_iva(iva)">
+                                <div class="input-group-append">
+                                  <span class="input-group-text" id="basic-addon2">%</span>
+                                </div>
+                              </div>
                             </el-tooltip>
+                            <p class="text-center">{{iva.created_at | fecha}}</p>
                             <el-tooltip class="item" effect="dark" content="Eliminar IVA" placement="bottom-end">
                                 <el-button type="danger" class="eliminar" icon="el-icon-delete" circle @click="eliminarIva(iva.id)" />
                             </el-tooltip>
@@ -65,9 +69,9 @@ export default {
             route: 'api/impuesto/',
             iva: [],
             model: {
-                anho: '',
-                descripcion: '',
-                porcentaje: ''
+              anho: '',
+              descripcion: '',
+              porcentaje: ''
             },
         };
     },
@@ -82,6 +86,13 @@ export default {
         this.lista_iva()
     },
     methods: {
+        limpiar(){
+          this.model = {
+            anho: '',
+            descripcion: '',
+            porcentaje: ''
+          }
+        },
         lista_iva() {
             axios.get(`${this.route}listar-iva`).then(res => {
                 this.iva = res.data
@@ -95,7 +106,21 @@ export default {
                 type: 'success'
             });
             this.lista_iva()
+            this.limpiar()
             $('#CrearIva').modal('hide')
+        },
+        async actualizar_iva(iva) {
+          this.model = {
+            porcentaje: iva.porcentaje
+          },
+          await axios.put(`${this.route}${iva.id}/actualizar-iva`, this.model)
+          this.lista_iva()
+          this.limpiar()
+          this.$notify({
+              title: 'Success',
+              message: 'Se actualizo el IVA correctamente',
+              type: 'success'
+          });
         },
         async eliminarIva(id) {
             await axios.delete(`${this.route}${id}/eliminar-iva`)
@@ -111,16 +136,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.editar {
-  color: white;
-  position: absolute;
-  top: 15%;
-  right: 4%;
-}
 .eliminar {
   color: white;
   position: absolute;
-  top: 44%;
-  right: 4%;
+  top: -14%;
+  right: 93%;
 }
 </style>

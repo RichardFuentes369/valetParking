@@ -45,4 +45,13 @@ class UserController extends Controller
         return $e;
     }
   }
+
+  public function eliminar($id){
+    try {
+      $eliminar_registro = usuarios::find($id);
+      $eliminar_registro->delete();
+    } catch (\Exception $e) {
+        return $e;
+    }
+  }
 }

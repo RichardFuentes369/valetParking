@@ -10,7 +10,6 @@ class RolesController extends Controller
 {
     public function lista(){
       try {
-          // $consulta = roles::get();
           $consulta = roles::with('tengoUsuarios')->get();
           return $consulta;
       } catch (\Exception $e) {
@@ -25,6 +24,18 @@ class RolesController extends Controller
         $nuevo_registro->descripcion = $request->descripcion;
         $nuevo_registro->save();
         return 'rol creado  con exito';
+      } catch (\Exception $e) {
+        return $e;
+      }
+    }
+
+    public function actualizar($id, Request $request){
+      try {
+        $actualizar_registro = roles::find($id);
+        $actualizar_registro->nombre = $request->nombre;
+        $actualizar_registro->descripcion = $request->descripcion;
+        $actualizar_registro->save();
+        return 'rol actualizado  con exito';
       } catch (\Exception $e) {
         return $e;
       }

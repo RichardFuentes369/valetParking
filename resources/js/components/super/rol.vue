@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title text-center">Roles</h5>
-            <p class="text-center">falta editar y eliminar a los usuarios</p>
+            <p class="text-center">falta editar a los usuarios</p>
             <div class="d-flex justify-content-end">
                 <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearRol"></el-button>
             </div>
@@ -18,8 +18,16 @@
                             <el-tooltip class="item" effect="dark" content="Eliminar este rol" placement="bottom-end">
                                 <el-button type="danger" class="eliminarcard" icon="el-icon-delete" circle @click="eliminarRol(rol.id)" />
                             </el-tooltip>
-                            <h5 class="card-title text-lg-left">{{rol.nombre}}</h5>
-                            <h4 class="card-text text-center text-muted">{{rol.descripcion}}</h4>
+                            <h5 class="card-title text-lg-left">
+                              <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
+                                <input type="text" v-model="rol.nombre" class="border-0 ml-auto alert-link" @change="actualizar_rol(rol)">
+                              </el-tooltip>
+                            </h5>
+                            <h4 class="card-text text-center text-muted">
+                              <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
+                                <input type="text" v-model="rol.descripcion" class="border-0 text-muted" @change="actualizar_rol(rol)">
+                              </el-tooltip>
+                            </h4>
                             <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#MostrarUsuarios" @click="mostrarUsuarios(rol.id)">Mostrar</button>
                             <button class="btn btn-success btn-block" data-toggle="modal" data-target="#CrearUsuarios" @click="llenarid(rol.id)">Agregar</button>
                         </div>
@@ -75,6 +83,7 @@
                                 <th scope="col">DNI</th>
                                 <th scope="col">EMAIL</th>
                                 <th scope="col">INICIO CONTRATO</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +95,7 @@
                                 <td>{{usuario.dni}}</td>
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.fecha_nacimiento}}</td>
+                                <td><el-button type="danger" icon="el-icon-delete" circle @click="eliminarUsuario(usuario.id)"></el-button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -220,6 +230,9 @@ export default {
         this.lista_roles()
     },
     methods: {
+
+        // Roles
+
         lista_roles() {
             axios.get(`${this.route}lista-roles`).then(res => {
                 this.roles = res.data
@@ -234,18 +247,36 @@ export default {
             });
             this.lista_roles()
             $('#CrearRol').modal('hide')
-            this.model = []
+            this.model = {
+              nombre: '',
+              descripcion: ''
+            }
         },
-        async actualizar_rol() {
-            await axios.post(`${this.route}actualizar-rol`, this.model)
+        async actualizar_rol(rol) {
+          this.model = {
+            nombre: rol.nombre,
+            descripcion: rol.descripcion
+          },
+          await axios.put(`${this.route}${rol.id}/actualizar-rol`, this.model)
+          this.lista_roles()
+          this.$notify({
+              title: 'Success',
+              message: 'Se actualizo el rol correctamente',
+              type: 'success'
+          });
+        },
+        async eliminarRol(id) {
+            await axios.delete(`${this.route}${id}/eliminar-rol`)
+            this.lista_roles()
             this.$notify({
                 title: 'Success',
-                message: 'Rol actualizado exitosamente',
+                message: 'Se elimino el rol correctamente',
                 type: 'success'
             });
-            this.lista_roles()
-            this.model = []
         },
+
+        //Usuarios
+
         mostrarUsuarios(id_rol) {
             this.usuarios = this.roles.find(({
                 id
@@ -265,14 +296,14 @@ export default {
             $('#CrearUsuarios').modal('hide')
             this.model2 = []
         },
-        async eliminarRol(id) {
-            await axios.delete(`${this.route}${id}/eliminar-rol`)
-            this.lista_roles()
+        async eliminarUsuario(id){
+            await axios.delete(`${this.route2}${id}/eliminar-usuario`)
             this.$notify({
                 title: 'Success',
-                message: 'Se elimino el rol correctamente',
+                message: 'Usuario Eliminado exitosamente',
                 type: 'success'
             });
+            this.lista_roles()
         }
     }
 }

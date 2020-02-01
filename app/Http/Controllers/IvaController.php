@@ -31,6 +31,17 @@ class IvaController extends Controller
       }
     }
 
+    public function actualizar($id, Request $request){
+      try {
+        $actualizar_registro = impuesto_valor_agregado::find($id);
+        $actualizar_registro->porcentaje = $request->porcentaje;
+        $actualizar_registro->save();
+        return 'iva actualizado  con exito';
+      } catch (\Exception $e) {
+        return $e;
+      }
+    }
+
     public function eliminar($id){
       try {
         $eliminar_registro = impuesto_valor_agregado::find($id);
