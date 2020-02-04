@@ -329,7 +329,7 @@ export default {
   right: 92%;
 }
 .scroll-y{
-  height: 300px;
+  height: 20rem;
   width: 100%;
   overflow-y: auto;
 }

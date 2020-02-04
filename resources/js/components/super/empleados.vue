@@ -4,7 +4,7 @@
       <div class="card-body">
         <h5 class="card-title text-center">empleados</h5>
         <div class="card-body">
-          lista empleados
+          lista empleados con las facturas realizadas
         </div>
       </div>
     </div>
