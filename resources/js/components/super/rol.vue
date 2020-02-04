@@ -19,14 +19,14 @@
                                 <el-button type="danger" class="eliminarcard" icon="el-icon-delete" circle @click="eliminarRol(rol.id)" />
                             </el-tooltip>
                             <h5 class="card-title text-lg-left">
-                              <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                                <input type="text" v-model="rol.nombre" class="border-0 ml-auto alert-link" @change="actualizar_rol(rol)">
-                              </el-tooltip>
+                                <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
+                                    <input type="text" v-model="rol.nombre" class="border-0 ml-auto alert-link" @change="actualizar_rol(rol)">
+                                </el-tooltip>
                             </h5>
                             <h4 class="card-text text-center text-muted">
-                              <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                                <input type="text" v-model="rol.descripcion" class="border-0 text-muted" @change="actualizar_rol(rol)">
-                              </el-tooltip>
+                                <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
+                                    <input type="text" v-model="rol.descripcion" class="border-0 text-muted" @change="actualizar_rol(rol)">
+                                </el-tooltip>
                             </h4>
                             <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#MostrarUsuarios" @click="mostrarUsuarios(rol.id)">Mostrar</button>
                             <button class="btn btn-success btn-block" data-toggle="modal" data-target="#CrearUsuarios" @click="llenarid(rol.id)">Agregar</button>
@@ -95,7 +95,9 @@
                                 <td>{{usuario.dni}}</td>
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.fecha_nacimiento}}</td>
-                                <td><el-button type="danger" icon="el-icon-delete" circle @click="eliminarUsuario(usuario.id)"></el-button></td>
+                                <td>
+                                    <el-button type="danger" icon="el-icon-delete" circle @click="eliminarUsuario(usuario.id)"></el-button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -164,14 +166,14 @@
                                 <label for="">Telefono celular</label>
                                 <el-input placeholder="Celular" v-model="model2.telefono_celular" maxlength="50" show-word-limit resize="none" />
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" v-show="this.model2.id_rol != 3">
                                 <label for="">Inicio Contrato</label>
                                 <br>
                                 <el-date-picker v-model="model2.inicio_contrato" type="date" placeholder="Inicio contrato" />
                                 <br>
                                 <label for="">Fin contrato</label>
                                 <br>
-                                <el-date-picker v-model="model2.fin_contrato" type="date" placeholder="Fint contrato" />
+                                <el-date-picker v-model="model2.fin_contrato" type="date" placeholder="Fin contrato" />
                             </div>
                         </div>
                     </div>
@@ -232,7 +234,6 @@ export default {
     methods: {
 
         // Roles
-
         lista_roles() {
             axios.get(`${this.route}lista-roles`).then(res => {
                 this.roles = res.data
@@ -248,22 +249,22 @@ export default {
             this.lista_roles()
             $('#CrearRol').modal('hide')
             this.model = {
-              nombre: '',
-              descripcion: ''
+                nombre: '',
+                descripcion: ''
             }
         },
         async actualizar_rol(rol) {
-          this.model = {
-            nombre: rol.nombre,
-            descripcion: rol.descripcion
-          },
-          await axios.put(`${this.route}${rol.id}/actualizar-rol`, this.model)
-          this.lista_roles()
-          this.$notify({
-              title: 'Success',
-              message: 'Se actualizo el rol correctamente',
-              type: 'success'
-          });
+            this.model = {
+                    nombre: rol.nombre,
+                    descripcion: rol.descripcion
+                },
+                await axios.put(`${this.route}${rol.id}/actualizar-rol`, this.model)
+            this.lista_roles()
+            this.$notify({
+                title: 'Success',
+                message: 'Se actualizo el rol correctamente',
+                type: 'success'
+            });
         },
         async eliminarRol(id) {
             await axios.delete(`${this.route}${id}/eliminar-rol`)
@@ -276,13 +277,28 @@ export default {
         },
 
         //Usuarios
-
+        limpiar() {
+            this.model2 = {
+                nombre: '',
+                apellido: '',
+                td: '',
+                dni: '',
+                email: '',
+                fecha_nacimiento: '',
+                telefono_fijo: '',
+                telefono_celular: '',
+                inicio_contrato: '',
+                fin_contrato: '',
+                id_rol: '',
+            }
+        },
         mostrarUsuarios(id_rol) {
             this.usuarios = this.roles.find(({
                 id
             }) => id === id_rol).tengo_usuarios
         },
         llenarid(rol_id) {
+            this.limpiar(),
             this.model2.id_rol = rol_id
         },
         async crear_usuario() {
@@ -294,10 +310,23 @@ export default {
             });
             this.lista_roles()
             $('#CrearUsuarios').modal('hide')
-            this.model2 = []
+            this.model2 = {
+                nombre: '',
+                apellido: '',
+                td: '',
+                dni: '',
+                email: '',
+                fecha_nacimiento: '',
+                telefono_fijo: '',
+                telefono_celular: '',
+                inicio_contrato: '',
+                fin_contrato: '',
+                id_rol: ''
+            }
         },
-        async eliminarUsuario(id){
+        async eliminarUsuario(id) {
             await axios.delete(`${this.route2}${id}/eliminar-usuario`)
+            this.usuarios.pop(id)
             this.$notify({
                 title: 'Success',
                 message: 'Usuario Eliminado exitosamente',
