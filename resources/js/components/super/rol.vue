@@ -3,9 +3,8 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title text-center">Roles</h5>
-            <p class="text-center">falta editar a los usuarios</p>
             <div class="d-flex justify-content-end">
-                <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearRol"></el-button>
+                <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearRol" @click="limpiarModel()"></el-button>
             </div>
             <br>
             <div class="card-body">
@@ -234,6 +233,12 @@ export default {
     methods: {
 
         // Roles
+        limpiarModel() {
+          this.model = {
+            nombre: '',
+            descripcion: ''
+          }
+        },
         lista_roles() {
             axios.get(`${this.route}lista-roles`).then(res => {
                 this.roles = res.data
@@ -247,6 +252,7 @@ export default {
                 type: 'success'
             });
             this.lista_roles()
+            this.limpiarModel()
             $('#CrearRol').modal('hide')
             this.model = {
                 nombre: '',
@@ -260,6 +266,7 @@ export default {
                 },
                 await axios.put(`${this.route}${rol.id}/actualizar-rol`, this.model)
             this.lista_roles()
+            this.limpiarModel()
             this.$notify({
                 title: 'Success',
                 message: 'Se actualizo el rol correctamente',
@@ -277,7 +284,7 @@ export default {
         },
 
         //Usuarios
-        limpiar() {
+        limpiarModel2() {
             this.model2 = {
                 nombre: '',
                 apellido: '',
@@ -298,8 +305,8 @@ export default {
             }) => id === id_rol).tengo_usuarios
         },
         llenarid(rol_id) {
-            this.limpiar(),
-            this.model2.id_rol = rol_id
+            this.limpiarModel2(),
+                this.model2.id_rol = rol_id
         },
         async crear_usuario() {
             await axios.post(`${this.route2}crear-usuario`, this.model2)

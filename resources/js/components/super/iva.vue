@@ -3,10 +3,10 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title text-center">Iva</h5>
-            <p class="text-center">falta editar y eliminar a los roles</p>
             <div class="d-flex justify-content-end">
-                <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearIva"></el-button>
+                <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearIva" @click="limpiar()"></el-button>
             </div>
+            <br>
             <div class="card-body">
                 <div class="row mt-xl-n5">
                     <div v-for="iva in iva" class="card mx-3" style="width: 18rem">
@@ -90,7 +90,7 @@ export default {
           this.model = {
             anho: '',
             descripcion: '',
-            porcentaje: ''
+            porcentaje: 0
           }
         },
         lista_iva() {

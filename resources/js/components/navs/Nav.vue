@@ -14,12 +14,9 @@
     <el-submenu index="2">
       <template slot="title">Sobre Nosotros</template>
       <el-menu-item index="2-1" class="nav-item">
-        <router-link :to="{ name: 'mision'}" class="nav-link text-white ">Misión/Visión</router-link>
+        <router-link :to="{ name: 'informacioni'}" class="nav-link text-white ">Misión/Visión</router-link>
       </el-menu-item>
         <el-menu-item index="2-4-1" class="nav-item">
-          <router-link :to="{ name: 'contactenos'}" class="nav-link text-white ">Contactenos</router-link>
-        </el-menu-item>
-        <el-menu-item index="2-4-2" class="nav-item">
           <router-link :to="{ name: 'programadores'}" class="nav-link text-white ">Programadores</router-link>
         </el-menu-item>
     </el-submenu>

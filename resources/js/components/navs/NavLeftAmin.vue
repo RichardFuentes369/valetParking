@@ -57,7 +57,7 @@
                 <span slot="title">Configurar</span>
             </template>
             <el-menu-item index="4-1" class="nav-item">
-                <router-link :to="{ name: 'mision'}" class="nav-link">Misión/Visión</router-link>
+                <router-link :to="{ name: 'informaciona'}" class="nav-link">Misión/Visión</router-link>
             </el-menu-item>
         </el-submenu>
         <!-- configuracion -->

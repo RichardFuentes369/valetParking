@@ -1,29 +1,21 @@
 <template>
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title text-center"><h3>PRECIOS</h3></h5>
+        <h5 class="card-title text-center">
+            <h3>PRECIOS</h3>
+        </h5>
         <el-button class="alineacion" v-show="precios == ''" type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearPrecio"></el-button>
-        <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="d-flex justify-content-center">
-                        <label for="" class="text-muted"><h3>MOTO</h3></label>
-                        <img src="img/moto.jpg" alt="" style="margin-top: 2rem; margin-left: -10rem">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="d-flex justify-content-center">
-                        <label for="" class="text-muted"><h3>CARRO</h3></label>
-                        <img src="img/carro.jpg" alt="" style="margin-top: 2rem; margin-left: -10rem">
-                    </div>
-                </div>
-            </div>
-        </div>
         <br>
         <div class="card-body">
             <div class="col-sm-12">
                 <div class="row" v-for="precios of precios">
                     <div class="col-sm-6">
+                        <div class="d-flex justify-content-center">
+                            <label for="" class="text-muted">
+                                <h3>MOTO</h3>
+                            </label>
+                            <img src="img/motorcicle.png" alt="" style="margin-top: 2rem; margin-left: -10rem">
+                        </div>
                         <table class="table">
                             <tr>
                                 <td>
@@ -98,6 +90,12 @@
                         </table>
                     </div>
                     <div class="col-sm-6">
+                        <div class="d-flex justify-content-center">
+                            <label for="" class="text-muted">
+                                <h3>CARRO</h3>
+                            </label>
+                            <img src="img/car.jpg" alt="" style="margin-top: 2rem; margin-left: -10rem">
+                        </div>
                         <table class="table">
                             <tr>
                                 <td>
@@ -307,7 +305,7 @@ export default {
 
 <style lang="css" scoped>
 .alineacion{
-  margin-top: 0rem;
-  margin-left: 78rem;
+  margin-top: 0%;
+  margin-left: 90%;
 }
 </style>
