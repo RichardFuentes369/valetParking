@@ -16,9 +16,9 @@
       <el-menu-item index="2-1" class="nav-item">
         <router-link :to="{ name: 'informacioni'}" class="nav-link text-white ">Misión/Visión</router-link>
       </el-menu-item>
-        <el-menu-item index="2-4-1" class="nav-item">
-          <router-link :to="{ name: 'programadores'}" class="nav-link text-white ">Programadores</router-link>
-        </el-menu-item>
+      <el-menu-item index="2-4-1" class="nav-item">
+        <router-link :to="{ name: 'programadores'}" class="nav-link text-white ">Programadores</router-link>
+      </el-menu-item>
     </el-submenu>
   </el-menu>
 </div>
