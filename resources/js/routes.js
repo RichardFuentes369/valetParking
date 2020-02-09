@@ -13,69 +13,61 @@ import Iva from './components/super/iva'
 import InformacionA from './components/super/informacion'
 import Rol from './components/super/rol'
 import Facturas from './components/super/facturas'
-import Periodos from './components/super/periodos'
 import Empleados from './components/super/empleados'
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/informacioni',
-      name: 'informacioni',
-      component: InformacionI
-    },
-    {
-      path: '/programadores',
-      name: 'programadores',
-      component: Programadores
-    },
-
-    //administrador
-
-    {
-      path: '/precios',
-      name: 'precios',
-      component: Precios
-    },
-    {
-      path: '/descuentos',
-      name: 'descuentos',
-      component: Descuentos
-    },
-    {
-      path: '/iva',
-      name: 'iva',
-      component: Iva
-    },
-    {
-      path: '/informaciona',
-      name: 'informaciona',
-      component: InformacionA
-    },
-    {
-      path: '/rol',
-      name: 'rol',
-      component: Rol
-    },
-    {
-      path: '/facturas',
-      name: 'facturas',
-      component: Facturas
-    },
-    {
-      path: '/periodos',
-      name: 'periodos',
-      component: Periodos
-    },
-    {
-      path: '/empleados',
-      name: 'empleados',
-      component: Empleados
-    },
+  {
+    path: '/',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/informacioni',
+    name: 'informacioni',
+    component: InformacionI
+  },
+  {
+    path: '/programadores',
+    name: 'programadores',
+    component: Programadores
+  },
+  /*administrador*/
+  {
+    path: '/precios',
+    name: 'precios',
+    component: Precios
+  },
+  {
+    path: '/descuentos',
+    name: 'descuentos',
+    component: Descuentos
+  },
+  {
+    path: '/iva',
+    name: 'iva',
+    component: Iva
+  },
+  {
+    path: '/informaciona',
+    name: 'informaciona',
+    component: InformacionA
+  },
+  {
+    path: '/rol',
+    name: 'rol',
+    component: Rol
+  },
+  {
+    path: '/facturas',
+    name: 'facturas',
+    component: Facturas
+  },
+  {
+    path: '/empleados',
+    name: 'empleados',
+    component: Empleados
+  },
   ],
   mode: 'history'
 })

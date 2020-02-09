@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-center">Información</h5>
+        <h5 class="card-title titulo">Información</h5>
         <br>
         <div class="card-body mt-5">
           <div class="row mt-xl-n5">
@@ -156,4 +156,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.titulo{
+  color: white;
+  padding: 1rem;
+  border-left: 6px solid blue;
+  background-color: lightgrey;
+  font-family: cursive, sans-serif;
+}
 </style>

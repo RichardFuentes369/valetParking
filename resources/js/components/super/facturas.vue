@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-center">Roles</h5>
+        <h5 class="card-title titulo">Facturas</h5>
         <div class="card-body">
           <table class="table">
             <thead>
@@ -64,4 +64,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.titulo{
+  color: white;
+  padding: 1rem;
+  border-left: 6px solid blue;
+  background-color: lightgrey;
+  font-family: cursive, sans-serif;
+}
 </style>

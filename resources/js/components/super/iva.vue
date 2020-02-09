@@ -2,16 +2,18 @@
   <div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-center">Iva</h5>
+        <h5 class="card-title titulo">Iva</h5>
         <div class="d-flex justify-content-end">
           <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearIva" @click="limpiar()"></el-button>
         </div>
         <br>
         <div class="card-body">
           <div class="row mt-xl-n5">
-            <div v-for="iva in iva" class="card mx-3" style="width: 18rem">
+            <div v-for="iva in iva" class="card mx-3 my-2" style="width: 16rem">
+              <div class="card-header">
+                <h4 class="card-text card-title text-center">{{iva.anho}}</h4>
+              </div>
               <div class="card-body">
-                <h4 class="card-text text-center text-muted">{{iva.anho}}</h4>
                 <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
                   <div class="input-group mb-3">
                     <input type="text" v-model="iva.porcentaje" class="ml-auto alert-link text-center form-control" @change="actualizar_iva(iva)">
@@ -20,10 +22,12 @@
                     </div>
                   </div>
                 </el-tooltip>
-                <p class="text-center">{{iva.created_at | fecha}}</p>
                 <el-tooltip class="item" effect="dark" content="Eliminar IVA" placement="bottom-end">
                   <el-button type="danger" class="eliminar" icon="el-icon-delete" circle @click="eliminarIva(iva.id)" />
                 </el-tooltip>
+              </div>
+              <div class="card-footer">
+                <p class="text-center">{{iva.created_at | fecha}}</p>
               </div>
             </div>
           </div>
@@ -139,7 +143,15 @@ export default {
 .eliminar {
   color: white;
   position: absolute;
-  top: -14%;
-  right: 93%;
+  top: -8%;
+  right: -5%;
+  padding: 2%;
+}
+.titulo{
+  color: white;
+  padding: 1rem;
+  border-left: 6px solid blue;
+  background-color: lightgrey;
+  font-family: cursive, sans-serif;
 }
 </style>

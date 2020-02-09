@@ -9,7 +9,7 @@
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-user"></i>
-          <span slot="title">Configurar</span>
+          <span slot="title">Perfiles</span>
         </template>
         <el-menu-item index="1-3">
           <router-link :to="{ name: 'rol'}" class="nav-link">Roles</router-link>
@@ -19,18 +19,15 @@
       <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-bank-card"></i>
-          <span slot="title">Configurar</span>
+          <span slot="title">Formas de Pago</span>
         </template>
         <el-menu-item index="2-1">
-          <router-link :to="{ name: 'periodos'}" class="nav-link">Periodos</router-link>
-        </el-menu-item>
-        <el-menu-item index="2-2">
           <router-link :to="{ name: 'precios'}" class="nav-link">Precios</router-link>
         </el-menu-item>
-        <el-menu-item index="2-3">
+        <el-menu-item index="2-2">
           <router-link :to="{ name: 'iva'}" class="nav-link">Iva</router-link>
         </el-menu-item>
-        <el-menu-item index="2-4">
+        <el-menu-item index="2-3">
           <router-link :to="{ name: 'descuentos'}" class="nav-link">Descuentos</router-link>
         </el-menu-item>
       </el-submenu>
@@ -38,15 +35,12 @@
       <el-submenu index="3">
         <template slot="title">
           <i class="el-icon-menu"></i>
-          <span slot="title">Configurar</span>
+          <span slot="title">Ver</span>
         </template>
         <el-menu-item index="4-1" class="nav-item">
           <router-link :to="{ name: 'facturas'}" class="nav-link">Facturas</router-link>
         </el-menu-item>
         <el-menu-item index="4-4-1" class="nav-item">
-          <router-link :to="{ name: 'periodos'}" class="nav-link">Periodos</router-link>
-        </el-menu-item>
-        <el-menu-item index="4-4-2" class="nav-item">
           <router-link :to="{ name: 'empleados'}" class="nav-link">Empleado</router-link>
         </el-menu-item>
       </el-submenu>
@@ -63,7 +57,7 @@
       <!-- configuracion -->
       <el-menu-item index="3">
         <i class="el-icon-setting"></i>
-        <span slot="title">Configurar Cuenta</span>
+        <span slot="title">Confiigurar</span>
       </el-menu-item>
     </el-menu>
   </div>

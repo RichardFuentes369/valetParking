@@ -2,14 +2,14 @@
   <div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-center">Roles</h5>
+        <h5 class="card-title titulo">Roles</h5>
         <div class="d-flex justify-content-end">
           <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearRol" @click="limpiarModel()"></el-button>
         </div>
         <br>
         <div class="card-body">
           <div class="row mt-xl-n5">
-            <div v-for="rol in roles" class="card mx-3" style="width: 18rem">
+            <div v-for="rol in roles" class="card mx-3 my-2" style="width: 16rem">
               <div class="card-body">
                 <el-tooltip class="item" effect="dark" content="Cantidad de usuarios" placement="bottom-end">
                   <span class="card-text cantidad">{{rol.tengo_usuarios.length}}</span>
@@ -24,7 +24,7 @@
                 </h5>
                 <h4 class="card-text text-center text-muted">
                   <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                    <input type="text" v-model="rol.descripcion" class="border-0 text-muted" @change="actualizar_rol(rol)">
+                    <input type="text" v-model="rol.descripcion" class="border-0 text-muted tres-puntos" @change="actualizar_rol(rol)">
                   </el-tooltip>
                 </h4>
                 <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#MostrarUsuarios" @click="mostrarUsuarios(rol.id)">Mostrar</button>
@@ -359,12 +359,28 @@ export default {
 .eliminarcard {
   color: white;
   position: absolute;
-  top: -10%;
-  right: 92%;
+  top: -8%;
+  right: -5%;
+  padding: 2%;
 }
 .scroll-y{
   height: 20rem;
   width: 100%;
   overflow-y: auto;
+}
+.titulo{
+  color: white;
+  padding: 1rem;
+  border-left: 6px solid blue;
+  background-color: lightgrey;
+  font-family: cursive, sans-serif;
+}
+.tres-puntos{
+  width: 100%;
+  height: 39px;
+  font-size: 12pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

@@ -2,23 +2,23 @@
   <div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-center">Descuentos</h5>
+        <h5 class="card-title titulo">Descuentos</h5>
         <div class="d-flex justify-content-end">
           <el-button class="alineacion" type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearDescuento" @click="limpiar()"></el-button>
         </div>
         <br>
         <div class="card-body">
           <div class="row mt-xl-n5">
-            <div v-for="descuento in descuentos" class="card mx-3" style="width: 18rem">
+            <div v-for="descuento in descuentos" class="card mx-3 my-2" style="width: 16rem">
               <div class="card-body">
                 <h5 class="card-title text-lg-left">
                   <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                    <input type="text" v-model="descuento.nombre" class="border-0 ml-auto alert-link" @change="actualizar_descuento(descuento)">
+                    <input type="text" v-model="descuento.nombre" class="border-0 ml-auto alert-link tres-puntos" @change="actualizar_descuento(descuento)">
                   </el-tooltip>
                 </h5>
                 <h4 class="card-text text-center text-muted">
                   <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                    <input type="text" v-model="descuento.descripcion" class="border-0 text-muted" @change="actualizar_descuento(descuento)">
+                    <input type="text" v-model="descuento.descripcion" class="border-0 text-muted tres-puntos" @change="actualizar_descuento(descuento)">
                   </el-tooltip>
                 </h4>
                 <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
@@ -158,7 +158,23 @@ export default {
 .eliminar {
   color: white;
   position: absolute;
-  top: -14%;
-  right: 93%;
+  top: -8%;
+  right: -5%;
+  padding: 2%;
+}
+.titulo{
+  color: white;
+  padding: 1rem;
+  border-left: 6px solid blue;
+  background-color: lightgrey;
+  font-family: cursive, sans-serif;
+}
+.tres-puntos{
+  width: 100%;
+  height: 39px;
+  font-size: 12pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

@@ -1,9 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title text-center">
-        <h3>PRECIOS</h3>
-      </h5>
+      <h5 class="card-title titulo">Precios</h5>
       <el-button class="alineacion" v-show="precios == ''" type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearPrecio"></el-button>
       <br>
       <div class="card-body">
@@ -179,7 +177,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title ml-auto" id="exampleModalLabel">Crear Precios MOTO</h5>
+            <h5 class="modal-title ml-auto" id="exampleModalLabel">Crear Precios</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -307,5 +305,12 @@ export default {
 .alineacion{
   margin-top: 0%;
   margin-left: 90%;
+}
+.titulo{
+  color: white;
+  padding: 1rem;
+  border-left: 6px solid blue;
+  background-color: lightgrey;
+  font-family: cursive, sans-serif;
 }
 </style>
