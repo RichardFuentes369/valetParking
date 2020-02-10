@@ -18,3 +18,10 @@ Vue.component('periodos', require('./components/super/periodos.vue').default);
 Vue.component('empleados', require('./components/super/empleados.vue').default);
 
 Vue.component('navle', require('./components/navs/NavLeftEmpleado.vue').default);
+Vue.component('cobrar-factura', require('./components/empleado/cobrarfactura.vue').default);
+Vue.component('crear-factura', require('./components/empleado/crearfactura.vue').default);
+Vue.component('registro-clientes', require('./components/empleado/registro.vue').default);
+
+
+
+

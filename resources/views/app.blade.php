@@ -25,9 +25,9 @@
                 {{-- si esta logueado muestro dependiendo del perfil --}}
                 {{-- @if(Auth::check() == true) --}}
                   {{-- @if(Auth::user()->id_rol == 1) --}}
-                    <navla></navla>
+                    {{-- <navla></navla> --}}
                   {{-- @else --}}
-                    {{-- <navle></navle> --}}
+                    <navle></navle> 
                   {{-- @endif --}}
                 {{-- @endif --}}
                 <div class="pl-4 col-sm">

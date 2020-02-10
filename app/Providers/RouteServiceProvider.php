@@ -85,6 +85,7 @@ class RouteServiceProvider extends ServiceProvider
                  require base_path('routes/api/impuesto_valor_agregado.php');
                  require base_path('routes/api/precios.php');
                  require base_path('routes/api/descuentos.php');
+                 require base_path('routes/api/clientes.php');
              });
     }
 }

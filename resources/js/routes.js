@@ -15,6 +15,10 @@ import Rol from './components/super/rol'
 import Facturas from './components/super/facturas'
 import Empleados from './components/super/empleados'
 
+import CrarFactura from './components/empleado/crearfactura.vue'
+import CobrarFactura from './components/empleado/cobrarfactura.vue'
+import RegistroCliente from './components/empleado/registro.vue'
+
 export default new Router({
   routes: [
   {
@@ -67,6 +71,21 @@ export default new Router({
     path: '/empleados',
     name: 'empleados',
     component: Empleados
+  },  
+  {
+    path: '/crear-factura',
+    name: 'crear-factura',
+    component: CrarFactura
+  },
+  {
+    path: '/cobrar-factura',
+    name: 'cobrar-factura',
+    component: CobrarFactura
+  },  
+  {
+    path: '/registro-clientes',
+    name: 'registro-clientes',
+    component: RegistroCliente
   },
   ],
   mode: 'history'
