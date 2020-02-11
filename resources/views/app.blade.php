@@ -12,24 +12,24 @@
 
 <body>
     <div id="app">
-        {{-- @if(Auth::check() == false) --}}
+        @if(Auth::check() == false)
           {{-- si no esta logueado muestro --}}
-          {{-- <navi></navi> --}}
-        {{-- @else --}}
+          <navi></navi>
+        @else
           {{-- si esta logueado muestro --}}
           <navs></navs>
-        {{-- @endif --}}
+        @endif
         <br>
         <div class="col-sm-12">
             <div class="row">
                 {{-- si esta logueado muestro dependiendo del perfil --}}
-                {{-- @if(Auth::check() == true) --}}
-                  {{-- @if(Auth::user()->id_rol == 1) --}}
-                    {{-- <navla></navla> --}}
-                  {{-- @else --}}
+                @if(Auth::check() == true)
+                  @if(Auth::user()->id_rol == 1)
+                    <navla></navla>
+                  @else
                     <navle></navle> 
-                  {{-- @endif --}}
-                {{-- @endif --}}
+                  @endif
+                @endif
                 <div class="pl-4 col-sm">
                     <router-view></router-view>
                 </div>
