@@ -30,6 +30,7 @@ class ClientesController extends Controller
 			$nuevo_registro->fecha_nacimiento = $fecha_na;
 			$nuevo_registro->fijo = $request->fijo;
 			$nuevo_registro->celular = $request->celular;
+			$nuevo_registro->created_by = $request->usuario_logeado;
 			$nuevo_registro->save();
 			return 'precio creado exitosamente';
 		} catch (\Exception $e) {

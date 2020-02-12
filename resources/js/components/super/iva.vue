@@ -75,7 +75,8 @@ export default {
       model: {
         anho: '',
         descripcion: '',
-        porcentaje: ''
+        porcentaje: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       },
     };
   },
@@ -94,7 +95,8 @@ export default {
       this.model = {
         anho: '',
         descripcion: '',
-        porcentaje: 0
+        porcentaje: 0,
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     },
     lista_iva() {

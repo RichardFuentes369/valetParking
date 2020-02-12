@@ -122,7 +122,8 @@ export default {
         barrio: '',
         ciudad: '',
         pais: '',
-        telefono: ''
+        telefono: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     };
   },

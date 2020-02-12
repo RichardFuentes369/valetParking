@@ -30,10 +30,11 @@ class PreciosController extends Controller
       $nuevo_registro->hora_carro = $request->hora_carro;
       $nuevo_registro->semana_carro = $request->semana_carro;
       $nuevo_registro->mes_carro = $request->mes_carro;
+      $nuevo_registro->created_by = $request->usuario_logeado;  
       $nuevo_registro->save();
       return 'precio creado exitosamente';
     } catch (\Exception $e) {
-        return $e;
+      return $e;
     }
   }
 
@@ -53,7 +54,7 @@ class PreciosController extends Controller
       $nuevo_registro->save();
       return 'precio actualizado exitosamente';
     } catch (\Exception $e) {
-        return $e;
+      return $e;
     }
   }
 }

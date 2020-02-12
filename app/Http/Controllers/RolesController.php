@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\roles;
+use Illuminate\Support\Facades\Auth;
 
 class RolesController extends Controller
 {
@@ -22,6 +23,7 @@ class RolesController extends Controller
         $nuevo_registro = new roles();
         $nuevo_registro->nombre = $request->nombre;
         $nuevo_registro->descripcion = $request->descripcion;
+        $nuevo_registro->created_by = $request->usuario_logeado;
         $nuevo_registro->save();
         return 'rol creado  con exito';
       } catch (\Exception $e) {
@@ -41,10 +43,11 @@ class RolesController extends Controller
       }
     }
 
-    public function eliminar($id){
+    public function eliminar($id, Request $request){
       try {
         $eliminar_registro = roles::find($id);
         $eliminar_registro->delete();
+        return 'rol eliminado con exito';
       } catch (\Exception $e) {
           return $e;
       }

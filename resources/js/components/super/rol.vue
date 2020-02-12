@@ -197,7 +197,8 @@ export default {
       usuarios: [],
       model: {
         nombre: '',
-        descripcion: ''
+        descripcion: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       },
       model2: {
         nombre: '',
@@ -235,7 +236,8 @@ export default {
     limpiarModel() {
       this.model = {
         nombre: '',
-        descripcion: ''
+        descripcion: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     },
     lista_roles() {

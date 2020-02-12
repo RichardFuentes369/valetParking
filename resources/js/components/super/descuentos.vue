@@ -80,7 +80,8 @@ export default {
       model: {
         nombre: '',
         descripcion: '',
-        porcentaje: ''
+        porcentaje: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       },
     };
   },
@@ -93,6 +94,7 @@ export default {
         nombre: '',
         descripcion: '',
         porcentaje: 0,
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     },
     lista_descuento() {

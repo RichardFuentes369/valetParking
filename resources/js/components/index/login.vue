@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <!-- <div class="card">
       <div class="card-body">
         <h5 class="card-title text-center">Iniciar Seccion</h5>
         <div class="card-body">
@@ -15,7 +15,7 @@
           Recuerda cambiar la contraseña periodicamente
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

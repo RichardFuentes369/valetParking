@@ -237,7 +237,8 @@ export default {
         media_carro: '',
         hora_carro: '',
         semana_carro: '',
-        mes_carro: ''
+        mes_carro: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     };
   },
@@ -256,7 +257,8 @@ export default {
         media_carro: '',
         hora_carro: '',
         semana_carro: '',
-        mes_carro: ''
+        mes_carro: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     },
     lista_precios() {
