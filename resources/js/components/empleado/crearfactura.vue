@@ -71,15 +71,18 @@
 											v-for="descuento in descuentos"
 											:key="descuento.id"
 											:label="descuento.nombre"
-											:value="descuento.porcentaje">
+											:value="descuento.id">
 											<span style="float: left">{{ descuento.nombre }}</span>
 											<span style="float: right; color: #8492a6; font-size: 13px">{{ descuento.porcentaje }}</span>
 										</el-option>
 									</el-select>
 								</div>									
 							</div>
+							<div class="col-sm-12">
+								<input type="text" class="form-control mt-3 bg-dark text-white text-center text-uppercase" v-model="model.placa" placeholder="PLACA" required> 
+							</div>
 							<h3 class="text-center mt-3">Empleado</h3>
-							<input type="text" value="Javier Ricardo Baron Fuentes" class="form-control text-center mt-2" readonly>		
+							<input type="text" :value="model.usuario_logeado" class="form-control text-center mt-2" readonly>		
 							<button :disabled="active" class="btn btn-success btn-block mt-3" @click="crearFactura">Generar Factura</button>
 						</div>
 					</div>
@@ -96,20 +99,23 @@ export default {
 		return {
 			route: 'api/clientes/',
 			route2: 'api/descuentos/',
+			route3: 'api/facturas/',
 			dni:'',
 			clientes: [],
 			model: {
 				cliente: {},
 				tipo_vehiculo: '',
 				descuento: '',
+				placa: '',
+				usuario_logeado: document.getElementsByName('correo_usuario')[0].content
 			},
 			tipo_vehicilos: [
 			{
-				value: 'Moto',
+				value: '1',
 				label: 'Moto'
 			}, 
 			{
-				value: 'Carro',
+				value: '0',
 				label: 'Carro'
 			}
 			],
@@ -149,13 +155,24 @@ export default {
 			}
 		},
 		async crearFactura() {
-			alert('Factura no1 creada con exito')
-			this.dni = ''
-			this.model = {
-				cliente: {},
-				tipo_vehicilo: '',
-				descuentos: ''
-			}
+			if(this.model.placa != ''){
+				await axios.post(`${this.route3}crear-factura`, this.model)
+				this.$notify({
+					title: 'Success',
+					message: 'Factura creada exitosamente',
+					type: 'success'
+				});
+				this.dni = ''
+				this.model = {
+					cliente: {},
+					tipo_vehiculo: '',
+					descuento: '',
+					placa: '',
+					usuario_logeado: document.getElementsByName('correo_usuario')[0].content
+				}	
+			} else {
+				alert('DEBE INGRESAR LA PLACA')
+			}			
 		}
 	}
 }
