@@ -300,7 +300,7 @@ export default {
       this.limpiar()
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>

@@ -202,7 +202,7 @@ export default {
       $('#CrearUsuario').modal('hide')
     },
   }
-}
+};
 </script>
 
 <style lang="css" scoped>

@@ -149,7 +149,7 @@ export default {
       return value
     }
   },
-}
+};
 </script>
 
 <style lang="css" scoped>

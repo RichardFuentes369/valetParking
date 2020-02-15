@@ -99,5 +99,5 @@ export default {
       console.log(key, keyPath);
     }
   }
-}
+};
 </script>

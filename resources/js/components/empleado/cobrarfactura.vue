@@ -3,48 +3,23 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title titulo">Cobrar Factura</h5>
-
-        <!-- <div class="card-body">
-          <div class="row mt-xl-n5">
-            <div v-for="factura in facturas" class="card mx-3 my-2 mt-5" style="width: 16rem">
-              <div class="card-body">
-                <h5 class="card-title text-center text-uppercase">
-                  {{factura.placa}}
-                </h5>
-                <img v-if="factura.tipo_vehiculo == 1" src="img/motorcicle.png" alt="" style="margin-top: 2rem">
-                <img v-else src="img/car.jpg" alt="" style="margin-top: 2rem">
-                <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#Cobrar">Cobrar</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
-<!--         <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Placa</th>
-                <th scope="col">Tipo Vehiculo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="factura in facturas">
-                <th scope="row">1</th>
-                <td>{{factura.placa}}</td>
-                <td>
-                  <span v-if="factura.tipo_vehiculo == 1" style="color: blue">Moto</span>
-                  <span v-else style="color:red">Carro</span>                  
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
-
+        <div class="card-body">
+          <button class="btn btn-success boton" data-toggle="modal" data-target="#CobrarFactura">Cobrar</button>
+          <h3 class="text-center">Facturas</h3>
+          <mdb-container>
+            <mdb-datatable
+            :data="data"
+            striped
+            bordered
+            arrows
+            :display="3"
+            />
+          </mdb-container>
+        </div>
       </div>
     </div>
-
     <!-- Modal Cobrar -->
-    <div class="modal fade" id="Cobrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="CobrarFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -54,12 +29,57 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>
-              aca sale una facturita, quien creo el servicio, cuando lo creo <br>
-              precio unitario, precio total, fecha inicio con hora, fecha fin con hora <br>
-              quien cobro el servicio, y quien lo creo, tipo de descuento, iva <br>
-              placa,   
-            </p>
+            <input class="form-control" type="text" placeholder="ingrese el id">
+            <table class="table">
+              <tr>
+                <td>Creado por</td>
+                <td>Javier Ricardo Baron</td>
+              </tr>
+              <tr>
+                <td>Fecha de creado</td>
+                <td>2018/06/01</td>
+              </tr>
+              <tr>
+                <td>PLACA</td>
+                <td>ZGO213</td>
+              </tr>
+              <tr>
+                <td>Hora de creado</td>
+                <td>2018/06/01</td>
+              </tr>
+              <tr>
+                <td>Descuento aplicado</td>
+                <td>3%</td>
+              </tr>
+              <tr>
+                <td>Fecha de fin</td>
+                <td>2018/06/01</td>
+              </tr>
+              <tr>
+                <td>Hora de fin</td>
+                <td>2018/06/01</td>
+              </tr>
+              <tr>
+                <td>IVA</td>
+                <td>16%</td>
+              </tr>
+              <tr>
+                <td>TOTAL A PAGAR</td>
+                <td>2500</td>
+              </tr>
+              <tr>
+                <td>FINALIZADO por</td>
+                <td>Javier Ricardo Baron</td>
+              </tr>
+              <tr>
+                <td>Fecha de finalizado</td>
+                <td>2018/06/01</td>
+              </tr>
+              <tr>
+                <td>Hora de finalizado</td>
+                <td>2018/06/01</td>
+              </tr>
+            </table>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -72,26 +92,60 @@
 </template>
 
 <script>
+import { mdbDatatable, mdbContainer } from 'mdbvue';
 export default {
+  components: {
+    mdbDatatable,
+    mdbContainer
+  },
   data() {
     return {
-      route: 'api/facturas/',
-      facturas: [],
-      conteo: ''
+      columns: [],
+      rows: []
     };
   },
-  mounted() {
-    this.listar_facturas()
+  computed: {
+    data() {
+      return {
+        columns: this.columns,
+        rows: this.rows
+      };
+    },
   },
   methods: {
-    async listar_facturas() {
-      await axios.get(`${this.route}lista-facturas`).then(res => {
-        this.facturas = res.data
-      })
-      this.conteo = this.facturas.length
+    filterData(dataArr, keys) {
+      let data = dataArr.map(entry => {
+        let filteredEntry = {};
+        keys.forEach(key => {
+          if (key in entry) {
+            filteredEntry[key] = entry[key];
+          }
+        });
+        return filteredEntry;
+      });
+      return data;
     }
+  },
+  mounted(){
+    fetch('http://valetparking.test/api/facturas/lista-facturas')
+    .then(res => res.json())
+    .then(json => {
+      let keys = ["id", "placa", "tipo_vehiculo", "estado"];
+      let entries = this.filterData(json, keys);
+          //columns
+          this.columns = keys.map(key => {
+            return {
+              label: key.toUpperCase(),
+              field: key,
+              sort: 'asc'
+            };
+          });
+          //rows
+          entries.map(entry => this.rows.push(entry));
+        })
+    .catch(err => console.log(err));
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
@@ -109,5 +163,11 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.boton{
+  margin-left: 84%;
+  -moz-border-radius: 200px 200px 200px 13px;
+  -webkit-border-radius: 200px 1px 200px 13px;
+  border: 0px solid #000000;
 }
 </style>

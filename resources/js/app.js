@@ -13,6 +13,11 @@ import axios from './axios'
 import component from './registercomponent'
 import router from './routes'
 
+
+import 'bootstrap-css-only/css/bootstrap.min.css'
+import 'mdbvue/lib/css/mdb.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 /**
 * The following block of code may be used to automatically register your
 * Vue components. It will recursively scan this directory for the Vue

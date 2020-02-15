@@ -27,7 +27,7 @@ export default {
   //     axios.post(`${this.route}mision`, this.model)
   //   }
   // }
-}
+};
 </script>
 
 <style lang="css" scoped>

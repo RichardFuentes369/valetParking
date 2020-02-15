@@ -342,7 +342,7 @@ export default {
       this.lista_roles()
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>

@@ -21,7 +21,7 @@ export default {
       // console.log(key, keyPath);
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>

@@ -35,7 +35,7 @@ export default {
       axios.post(`${this.route}ingresar`, this.model)
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>

@@ -13,8 +13,10 @@ use App\Models\{
 class FacturasController extends Controller
 {
 	public function lista() {
+	// public function lista(Request $request) {
 		try {
-			$consulta = facturas::where('estado','1')->get();
+			// $consulta = facturas::where('estado','1')->orderBy('id','desc')->paginate(10);
+			$consulta = facturas::where('estado','1')->orderBy('id','desc')->get();
 			return $consulta;
 		} catch (\Exception $e) {
 			return $e;
