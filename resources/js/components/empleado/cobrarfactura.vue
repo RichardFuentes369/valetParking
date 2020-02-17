@@ -18,9 +18,11 @@
         </div>
       </div>
     </div>
+
+
     <!-- Modal Cobrar -->
-    <div class="modal fade" id="CobrarFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade bd-example-modal-xl" id="CobrarFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Cobrar</h5>
@@ -29,57 +31,64 @@
             </button>
           </div>
           <div class="modal-body">
-            <input class="form-control" type="text" placeholder="ingrese el id">
-            <table class="table">
-              <tr>
-                <td>Creado por</td>
-                <td>Javier Ricardo Baron</td>
-              </tr>
-              <tr>
-                <td>Fecha de creado</td>
-                <td>2018/06/01</td>
-              </tr>
-              <tr>
-                <td>PLACA</td>
-                <td>ZGO213</td>
-              </tr>
-              <tr>
-                <td>Hora de creado</td>
-                <td>2018/06/01</td>
-              </tr>
-              <tr>
-                <td>Descuento aplicado</td>
-                <td>3%</td>
-              </tr>
-              <tr>
-                <td>Fecha de fin</td>
-                <td>2018/06/01</td>
-              </tr>
-              <tr>
-                <td>Hora de fin</td>
-                <td>2018/06/01</td>
-              </tr>
-              <tr>
-                <td>IVA</td>
-                <td>16%</td>
-              </tr>
-              <tr>
-                <td>TOTAL A PAGAR</td>
-                <td>2500</td>
-              </tr>
-              <tr>
-                <td>FINALIZADO por</td>
-                <td>Javier Ricardo Baron</td>
-              </tr>
-              <tr>
-                <td>Fecha de finalizado</td>
-                <td>2018/06/01</td>
-              </tr>
-              <tr>
-                <td>Hora de finalizado</td>
-                <td>2018/06/01</td>
-              </tr>
-            </table>
+            <input class="form-control text-center" v-model="id_factura" type="text" placeholder="ID de la factura">
+            <div class="col-sm-12 my-2">
+              <div class="row">
+                <div class="col-sm-4">
+                  <img src="img/sinImagen.jpg" alt="..." class="img-thumbnail">
+                </div>
+                <div class="col-sm-8">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Placa</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>         
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">fecha de creado</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>        
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">hora de creado</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>       
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">creado por</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                  <hr>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">cobrado por</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Iva</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Descuento</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Total</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -101,7 +110,20 @@ export default {
   data() {
     return {
       columns: [],
-      rows: []
+      rows: [],
+      id_factura: '',
+      model: {
+        tipo_vehiculo: '',
+        placa: '',
+        fecha_creacion:'',
+        hora_creacion:'',
+        creado_por:'',
+        cobrado_por: '',
+        iva: '',
+        descuento: '',
+        total: ''
+      },
+      usuario_logeado: document.getElementsByName('correo_usuario')[0].content
     };
   },
   computed: {
@@ -124,10 +146,23 @@ export default {
         return filteredEntry;
       });
       return data;
-    }
+    },
+    filtrar(val) {
+      let factura = this.rows.find(o => o.id === val)
+      if(factura != undefined){
+        console.log(factura)
+      } else {
+        console.log(factura)
+      }
+    },
+  },
+  watch: {
+    id_factura: function (val) {
+      this.filtrar(val)
+    },
   },
   mounted(){
-    fetch('http://valetparking.test/api/facturas/lista-facturas')
+    fetch('http://valetparking.test:3000/api/facturas/lista-facturas')
     .then(res => res.json())
     .then(json => {
       let keys = ["id", "placa", "tipo_vehiculo", "estado"];

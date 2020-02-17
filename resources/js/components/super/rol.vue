@@ -12,23 +12,23 @@
             <div v-for="rol in roles" class="card mx-3 my-2" style="width: 16rem">
               <div class="card-body">
                 <el-tooltip class="item" effect="dark" content="Cantidad de usuarios" placement="bottom-end">
-                  <span class="card-text cantidad">{{rol.tengo_usuarios.length}}</span>
+                  <span class="cantidad">{{rol.tengo_usuarios.length}}</span>
                 </el-tooltip>
                 <el-tooltip class="item" effect="dark" content="Eliminar este rol" placement="bottom-end">
                   <el-button type="danger" class="eliminarcard" icon="el-icon-delete" circle @click="eliminarRol(rol.id)" />
                 </el-tooltip>
                 <h5 class="card-title text-lg-left">
                   <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                    <input type="text" v-model="rol.nombre" class="border-0 ml-auto alert-link" @change="actualizar_rol(rol)">
+                    <input type="text" v-model="rol.nombre" class="border-0 ml-auto alert-link tres-puntos" @change="actualizar_rol(rol)">
                   </el-tooltip>
                 </h5>
                 <h4 class="card-text text-center text-muted">
                   <el-tooltip class="item" effect="light" content="Click para editar" placement="top">
-                    <input type="text" v-model="rol.descripcion" class="border-0 text-muted tres-puntos" @change="actualizar_rol(rol)">
+                    <input type="text" v-model="rol.descripcion" class="border-0 ml-auto text-muted tres-puntos" @change="actualizar_rol(rol)">
                   </el-tooltip>
                 </h4>
                 <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#MostrarUsuarios" @click="mostrarUsuarios(rol.id)">Mostrar</button>
-                <button class="btn btn-success btn-block" data-toggle="modal" data-target="#CrearUsuarios" @click="llenarid(rol.id)">Agregar</button>
+                <button class="btn btn-success btn-block my-2" data-toggle="modal" data-target="#CrearUsuarios" @click="llenarid(rol.id)">Agregar</button>
               </div>
             </div>
           </div>
@@ -351,7 +351,7 @@ export default {
   position: absolute;
   right: 8%;
   top: 0%;
-  font-size: 2em;
+  font-size: 2rem;
   border-bottom-left-radius: 400px 400px;
   border-bottom-right-radius: 400px 400px;
   background-color: #a21414;
