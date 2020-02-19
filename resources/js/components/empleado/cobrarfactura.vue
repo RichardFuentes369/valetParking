@@ -4,7 +4,7 @@
       <div class="card-body">
         <h5 class="card-title titulo">Cobrar Factura</h5>
         <div class="card-body">
-          <button class="btn btn-success boton" data-toggle="modal" data-target="#CobrarFactura">Cobrar</button>
+          <button class="btn btn-success boton" data-toggle="modal" data-target="#CobrarFactura" @click="limpiar">Cobrar</button>
           <h3 class="text-center">Facturas</h3>
           <mdb-container>
             <mdb-datatable
@@ -17,7 +17,7 @@
           </mdb-container>
         </div>
       </div>
-    </div>
+    </div>   
 
 
     <!-- Modal Cobrar -->
@@ -35,56 +35,59 @@
             <div class="col-sm-12 my-2">
               <div class="row">
                 <div class="col-sm-4">
-                  <img src="img/sinImagen.jpg" alt="..." class="img-thumbnail">
+                  <img v-if="model.tipo_vehiculo == ''" src="img/sinImagen.jpg" alt="..." class="img-thumbnail imagen">
+                  <img v-else-if="model.tipo_vehiculo == 0" src="img/car.jpg" alt="..." class="img-thumbnail imagen">
+                  <img v-else-if="model.tipo_vehiculo == 1" src="img/motorcicle.png" alt="..." class="img-thumbnail imagen">
                 </div>
                 <div class="col-sm-8">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Placa</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" v-model="model.placa" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>         
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">fecha de creado</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" v-model="model.fecha_creacion" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>        
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">hora de creado</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" v-model="model.hora_creacion" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>       
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">creado por</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" v-model="model.creado_por" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>
                   <hr>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">cobrado por</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" v-model="usuario_logeado" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Iva</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                  </div>                  <div class="input-group mb-3">
+                    <input type="text" v-model="model.iva" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                  </div>                  
+                  <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Descuento</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" v-model="model.descuento" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Total</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>
                 </div>
               </div>
@@ -112,13 +115,13 @@ export default {
       columns: [],
       rows: [],
       id_factura: '',
+      route: 'api/facturas/',
       model: {
         tipo_vehiculo: '',
         placa: '',
         fecha_creacion:'',
         hora_creacion:'',
         creado_por:'',
-        cobrado_por: '',
         iva: '',
         descuento: '',
         total: ''
@@ -147,14 +150,63 @@ export default {
       });
       return data;
     },
-    filtrar(val) {
-      let factura = this.rows.find(o => o.id === val)
-      if(factura != undefined){
-        console.log(factura)
-      } else {
-        console.log(factura)
+    limpiar() {
+      this.id_factura = '',
+      this.model = {
+        tipo_vehiculo: '',
+        placa: '',
+        fecha_creacion:'',
+        hora_creacion:'',
+        creado_por:'',
+        iva: '',
+        descuento: '',
+        total: ''
       }
     },
+    async filtrar(val) {
+      let factura = this.rows.find(o => o.id == val)
+      if(factura != undefined){
+        await this.consultaFactura(val)
+        this.model = {
+          tipo_vehiculo: factura.tipo_vehiculo,
+          placa: factura.placa,
+          fecha_creacion: factura.created_at,
+          hora_creacion: factura.created_at,
+          cobrado_por: document.getElementsByName('correo_usuario')[0].content,
+          creado_por: res.created_by,
+          iva: res.data[0].iva.porcentaje,
+          descuento: res.data[0].descuento.porcentaje,
+          total: ''
+        }
+      } else {
+        this.model = {
+          tipo_vehiculo:'',
+          placa:'',
+          fecha_creacion:'',
+          hora_creacion:'',
+          cobrado_por: '',
+          iva: '',
+          descuento: '',
+          total: ''
+        }
+      }
+    },
+    async consultaFactura(id) {
+      await axios.get(`${this.route}${id}/consulta-factura`).then(res => {
+        console.log(res.data[0])
+        this.model = {
+         tipo_vehiculo: res.data[0].tipo_vehiculo,
+         placa: res.data[0].placa,
+         creado_por: res.data[0].created_by,
+         fecha_creacion: res.data[0].created_at,
+         hora_creacion: res.data[0].created_at,
+         cobrado_por: document.getElementsByName('correo_usuario')[0].content,
+         iva: res.data[0].iva.porcentaje,
+         descuento: res.data[0].descuento.porcentaje,
+         total: ''
+       }
+     })
+    }
   },
   watch: {
     id_factura: function (val) {
@@ -204,5 +256,9 @@ export default {
   -moz-border-radius: 200px 200px 200px 13px;
   -webkit-border-radius: 200px 1px 200px 13px;
   border: 0px solid #000000;
+}
+.imagen{
+  width: 330px;
+  height: 250px;
 }
 </style>

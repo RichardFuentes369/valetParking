@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class facturas extends Model
 {
-      use SoftDeletes;
-      protected $table = "facturas";
+	use SoftDeletes;
+	protected $table = "facturas";
+
+
+	public function descuento()	{
+		return $this->belongsTo('App\Models\descuentos', 'id_descuento');
+	}
+
+
+	public function iva()	{
+		return $this->belongsTo('App\Models\impuesto_valor_agregado', 'id_iva');
+	}
 }

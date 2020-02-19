@@ -42,4 +42,13 @@ class FacturasController extends Controller
 			return $e;
 		}
 	}
+
+	public function lista_detallada($id){
+		try {
+			$consulta = facturas::where('id', $id)->with('descuento', 'iva')->get();
+			return $consulta;
+		} catch (Exception $e) {
+			return $e;
+		}
+	}
 }

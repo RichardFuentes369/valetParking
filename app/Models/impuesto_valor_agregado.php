@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class impuesto_valor_agregado extends Model
 {
-      use SoftDeletes;
-      protected $table = "impuesto_valor_agregado";
+	use SoftDeletes;
+	protected $table = "impuesto_valor_agregado";
+
 }
