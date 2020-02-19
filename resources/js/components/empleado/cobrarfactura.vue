@@ -104,6 +104,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mdbDatatable, mdbContainer } from 'mdbvue';
 export default {
   components: {
@@ -198,8 +199,8 @@ export default {
          tipo_vehiculo: res.data[0].tipo_vehiculo,
          placa: res.data[0].placa,
          creado_por: res.data[0].created_by,
-         fecha_creacion: res.data[0].created_at,
-         hora_creacion: res.data[0].created_at,
+         fecha_creacion: moment(res.data[0].created_at).format('L'),
+         hora_creacion: moment(res.data[0].created_at).format('LT'),
          cobrado_por: document.getElementsByName('correo_usuario')[0].content,
          iva: res.data[0].iva.porcentaje,
          descuento: res.data[0].descuento.porcentaje,
@@ -212,7 +213,7 @@ export default {
     id_factura: function (val) {
       this.filtrar(val)
     },
-  },
+  },  
   mounted(){
     fetch('http://valetparking.test:3000/api/facturas/lista-facturas')
     .then(res => res.json())
