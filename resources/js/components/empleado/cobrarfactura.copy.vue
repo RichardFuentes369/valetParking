@@ -151,7 +151,7 @@ export default {
     changePage(page) {
       this.pagination.current_page = page;
       this.listar_facturas(page);
-    }
+    },
   }
 }; 
 </script>

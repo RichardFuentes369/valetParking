@@ -178,7 +178,8 @@ export default {
           iva: res.data[0].iva.porcentaje,
           descuento: res.data[0].descuento.porcentaje,
           total: ''
-        }
+        },
+        this.calcularPrecio()
       } else {
         this.model = {
           tipo_vehiculo:'',
@@ -194,7 +195,6 @@ export default {
     },
     async consultaFactura(id) {
       await axios.get(`${this.route}${id}/consulta-factura`).then(res => {
-        console.log(res.data[0])
         this.model = {
          tipo_vehiculo: res.data[0].tipo_vehiculo,
          placa: res.data[0].placa,
@@ -207,6 +207,17 @@ export default {
          total: ''
        }
      })
+    },
+    calcularPrecio() {
+      console.log('aca ando yo')
+      // var fecha1 = moment(this.model.fecha_creacion);
+      // var fecha2 = moment("2020-10-03 07:30:00", "YYYY-MM-DD HH:mm:ss");
+
+      // var diff = fecha2.diff(fecha1, 'd'); 
+      // console.log(diff);
+
+      // var diff = fecha2.diff(fecha1, 'm'); 
+      // console.log(diff);
     }
   },
   watch: {
