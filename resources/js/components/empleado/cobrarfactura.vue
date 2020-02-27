@@ -168,18 +168,6 @@ export default {
       let factura = this.rows.find(o => o.id == val)
       if(factura != undefined){
         await this.consultaFactura(val)
-        this.model = {
-          tipo_vehiculo: factura.tipo_vehiculo,
-          placa: factura.placa,
-          fecha_creacion: factura.created_at,
-          hora_creacion: factura.created_at,
-          cobrado_por: document.getElementsByName('correo_usuario')[0].content,
-          creado_por: res.created_by,
-          iva: res.data[0].iva.porcentaje,
-          descuento: res.data[0].descuento.porcentaje,
-          total: ''
-        },
-        this.calcularPrecio()
       } else {
         this.model = {
           tipo_vehiculo:'',
@@ -195,6 +183,10 @@ export default {
     },
     async consultaFactura(id) {
       await axios.get(`${this.route}${id}/consulta-factura`).then(res => {
+
+        this.calcularPrecio(res.data[0].created_at)
+
+
         this.model = {
          tipo_vehiculo: res.data[0].tipo_vehiculo,
          placa: res.data[0].placa,
@@ -208,16 +200,10 @@ export default {
        }
      })
     },
-    calcularPrecio() {
-      console.log('aca ando yo')
-      // var fecha1 = moment(this.model.fecha_creacion);
-      // var fecha2 = moment("2020-10-03 07:30:00", "YYYY-MM-DD HH:mm:ss");
-
-      // var diff = fecha2.diff(fecha1, 'd'); 
-      // console.log(diff);
-
-      // var diff = fecha2.diff(fecha1, 'm'); 
-      // console.log(diff);
+    calcularPrecio(fechaCreado) {
+      var fecha1 = moment(new Date());
+      var fecha2 = moment(fechaCreado); 
+      console.log(moment.duration(fecha1.diff(fecha2))._data)
     }
   },
   watch: {
