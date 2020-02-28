@@ -23,6 +23,7 @@ class ClientesController extends Controller
 		try {
 			$fecha_na = Carbon::parse($request->fecha_nacimiento);
 			$nuevo_registro = new clientes();
+			$nuevo_registro->asociado = $request->asociado;
 			$nuevo_registro->nombre = $request->nombre;
 			$nuevo_registro->apellido = $request->apellido;
 			$nuevo_registro->td = $request->td;

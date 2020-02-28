@@ -35,6 +35,16 @@
             </button>
           </div>
           <div class="modal-body">
+            <div class="col-sm-12">
+              <label for="">Asociado</label> <br>
+              <el-select v-model="model.asociado" placeholder="Select">
+                <el-option
+                v-for="item in options2"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value" />
+              </el-select>
+            </div>
             <div class="col-sm-12 row">
               <div class="col-sm-6">
                 <label for="">Nombre</label>
@@ -78,7 +88,7 @@
                 <label for="">Celular</label>
                 <el-input v-model="model.celular" placeholder="Please input" maxlength="50" show-word-limit />
               </div>
-            </div>
+            </div>   
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -104,6 +114,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Asociado</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
                     <th scope="col">Td</th>
@@ -116,6 +127,7 @@
                 <tbody>
                   <tr v-for="(cliente, index) in clientes">
                     <th scope="row">{{cliente.id}}</th>
+                    <th scope="row">{{cliente.asociado}}</th>
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.td}}</td>
@@ -166,6 +178,20 @@ export default {
         label: 'CE',
         value: 'ce'
       }
+      ],
+      options2: [
+      {
+        label: 'Si',
+        value: 'Si'
+      },
+      {
+        label: 'No',
+        value: 'No'
+      },
+      {
+        label: 'Empleado',
+        value: 'Empleado'
+      }
       ]
     };
   },
@@ -175,6 +201,7 @@ export default {
   methods: {
     limpiar(){
       this.model = {
+        asociado: '',
         nombre: '',
         apellido: '',
         td: '',

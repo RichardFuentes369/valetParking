@@ -20,11 +20,13 @@ class PreciosController extends Controller
   public function crear(Request $request){
     try {
       $nuevo_registro = new precios();
+      $nuevo_registro->ano_moto = $request->ano_moto;
       $nuevo_registro->mes_moto = $request->mes_moto;
       $nuevo_registro->dia_moto = $request->dia_moto;
       $nuevo_registro->hora_moto = $request->hora_moto;
       $nuevo_registro->minuto_moto = $request->minuto_moto;
       $nuevo_registro->segundo_moto = $request->segundo_moto;
+      $nuevo_registro->ano_carro = $request->ano_carro;
       $nuevo_registro->mes_carro = $request->mes_carro;
       $nuevo_registro->dia_carro = $request->dia_carro;
       $nuevo_registro->hora_carro = $request->hora_carro;
@@ -41,11 +43,13 @@ class PreciosController extends Controller
   public function actualizar(Request $request){
     try {
       $nuevo_registro = precios::first();
+      $nuevo_registro->ano_moto = $request->ano_moto;
       $nuevo_registro->mes_moto = $request->mes_moto;
       $nuevo_registro->dia_moto = $request->dia_moto;
       $nuevo_registro->hora_moto = $request->hora_moto;
       $nuevo_registro->minuto_moto = $request->minuto_moto;
       $nuevo_registro->segundo_moto = $request->segundo_moto;
+      $nuevo_registro->ano_carro = $request->ano_carro;
       $nuevo_registro->mes_carro = $request->mes_carro;
       $nuevo_registro->dia_carro = $request->dia_carro;
       $nuevo_registro->hora_carro = $request->hora_carro;

@@ -18,6 +18,19 @@
                 <tr>
                   <td>
                     <label for="">
+                      <h5>Año Moto</h5>
+                    </label>
+                  </td>
+                  <td>
+                    <label for="">
+                      <h5>
+                        <input @change="actualizar_precio(precios)" type="number" v-model="precios.ano_moto" class="form-control" min="0">
+                      </h5>
+                    </label>
+                  </td>
+                </tr> <tr>
+                  <td>
+                    <label for="">
                       <h5>Mes Moto</h5>
                     </label>
                   </td>
@@ -95,6 +108,20 @@
                 <img src="img/car.jpg" alt="" style="margin-top: 2rem; margin-left: -10rem">
               </div>
               <table class="table">
+                <tr>
+                  <td>
+                    <label for="">
+                      <h5>Año carro</h5>
+                    </label>
+                  </td>
+                  <td>
+                    <label for="">
+                      <h5>
+                        <input @change="actualizar_precio(precios)" type="number" v-model="precios.ano_carro" class="form-control" min="0">
+                      </h5>
+                    </label>
+                  </td>
+                </tr>           
                 <tr>
                   <td>
                     <label for="">
@@ -186,6 +213,8 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-sm-6">
+                <label for="">Año de Moto</label>
+                <input type="number" v-model="model.ano_moto" class="form-control" min="0">
                 <label for="">Mes de Moto</label>
                 <input type="number" v-model="model.mes_moto" class="form-control" min="0">
                 <label for="">Dia de Moto</label>
@@ -198,6 +227,8 @@
                 <input type="number" v-model="model.segundo_moto" class="form-control" min="0">
               </div>
               <div class="col-sm-6">
+                <label for="">Año de Carro</label>
+                <input type="number" v-model="model.ano_carro" class="form-control" min="0">    
                 <label for="">Mes de Carro</label>
                 <input type="number" v-model="model.mes_carro" class="form-control" min="0">
                 <label for="">Dia de Carro</label>
@@ -229,11 +260,13 @@ export default {
       route: 'api/precios/',
       precios: [],
       model: {
+        ano_moto: '',
         mes_moto: '',
         dia_moto: '',
         hora_moto: '',
         minuto_moto: '',
         segundo_moto: '',
+        ano_carro: '',
         mes_carro: '',
         dia_carro: '',
         hora_carro: '',
@@ -249,11 +282,13 @@ export default {
   methods: {
     limpir() {
       this.model = {
+        ano_moto: '',
         mes_moto: '',
         dia_moto: '',
         hora_moto: '',
         minuto_moto: '',
         segundo_moto: '',
+        ano_carro: '',
         mes_carro: '',
         dia_carro: '',
         hora_carro: '',
@@ -280,11 +315,13 @@ export default {
     },
     async actualizar_precio(precios) {
       this.model = {
+        ano_moto: precios.ano_moto,
         mes_moto: precios.mes_moto,
         dia_moto: precios.dia_moto,
         hora_moto: precios.hora_moto,
         minuto_moto: precios.minuto_moto,
         segundo_moto: precios.segundo_moto,
+        ano_carro: precios.ano_carro,
         mes_carro: precios.mes_carro,
         dia_carro: precios.dia_carro,
         hora_carro: precios.hora_carro,

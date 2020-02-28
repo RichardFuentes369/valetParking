@@ -15,8 +15,11 @@ class facturas extends Model
 		return $this->belongsTo('App\Models\descuentos', 'id_descuento');
 	}
 
-
 	public function iva()	{
 		return $this->belongsTo('App\Models\impuesto_valor_agregado', 'id_iva');
+	}	
+
+	public function cliente()	{
+		return $this->belongsTo('App\Models\clientes', 'id_cliente');
 	}
 }
