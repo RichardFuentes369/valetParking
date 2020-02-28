@@ -20,16 +20,16 @@ class PreciosController extends Controller
   public function crear(Request $request){
     try {
       $nuevo_registro = new precios();
-      $nuevo_registro->cuarto_moto = $request->cuarto_moto;
-      $nuevo_registro->media_moto = $request->media_moto;
-      $nuevo_registro->hora_moto = $request->hora_moto;
-      $nuevo_registro->semana_moto = $request->semana_moto;
       $nuevo_registro->mes_moto = $request->mes_moto;
-      $nuevo_registro->cuarto_carro = $request->cuarto_carro;
-      $nuevo_registro->media_carro = $request->media_carro;
-      $nuevo_registro->hora_carro = $request->hora_carro;
-      $nuevo_registro->semana_carro = $request->semana_carro;
+      $nuevo_registro->dia_moto = $request->dia_moto;
+      $nuevo_registro->hora_moto = $request->hora_moto;
+      $nuevo_registro->minuto_moto = $request->minuto_moto;
+      $nuevo_registro->segundo_moto = $request->segundo_moto;
       $nuevo_registro->mes_carro = $request->mes_carro;
+      $nuevo_registro->dia_carro = $request->dia_carro;
+      $nuevo_registro->hora_carro = $request->hora_carro;
+      $nuevo_registro->minuto_carro = $request->minuto_carro;
+      $nuevo_registro->segundo_carro = $request->segundo_carro;
       $nuevo_registro->created_by = $request->usuario_logeado;  
       $nuevo_registro->save();
       return 'precio creado exitosamente';
@@ -41,16 +41,16 @@ class PreciosController extends Controller
   public function actualizar(Request $request){
     try {
       $nuevo_registro = precios::first();
-      $nuevo_registro->cuarto_moto = $request->cuarto_moto;
-      $nuevo_registro->media_moto = $request->media_moto;
-      $nuevo_registro->hora_moto = $request->hora_moto;
-      $nuevo_registro->semana_moto = $request->semana_moto;
       $nuevo_registro->mes_moto = $request->mes_moto;
-      $nuevo_registro->cuarto_carro = $request->cuarto_carro;
-      $nuevo_registro->media_carro = $request->media_carro;
-      $nuevo_registro->hora_carro = $request->hora_carro;
-      $nuevo_registro->semana_carro = $request->semana_carro;
+      $nuevo_registro->dia_moto = $request->dia_moto;
+      $nuevo_registro->hora_moto = $request->hora_moto;
+      $nuevo_registro->minuto_moto = $request->minuto_moto;
+      $nuevo_registro->segundo_moto = $request->segundo_moto;
       $nuevo_registro->mes_carro = $request->mes_carro;
+      $nuevo_registro->dia_carro = $request->dia_carro;
+      $nuevo_registro->hora_carro = $request->hora_carro;
+      $nuevo_registro->minuto_carro = $request->minuto_carro;
+      $nuevo_registro->segundo_carro = $request->segundo_carro;
       $nuevo_registro->save();
       return 'precio actualizado exitosamente';
     } catch (\Exception $e) {

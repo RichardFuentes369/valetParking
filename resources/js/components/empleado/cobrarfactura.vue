@@ -87,7 +87,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Total</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                    <input type="text" v-model="model.total" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>
                 </div>
               </div>
@@ -117,6 +117,7 @@ export default {
       rows: [],
       id_factura: '',
       route: 'api/facturas/',
+      route2: 'api/precios/',
       model: {
         tipo_vehiculo: '',
         placa: '',
@@ -126,6 +127,19 @@ export default {
         iva: '',
         descuento: '',
         total: ''
+      },
+      precios: {
+        id: '',
+        mes_carro: '',
+        dia_carro: '',
+        hora_carro: '',
+        minuto_carro: '',
+        segundo_carro: '',
+        mes_moto: '',
+        dia_moto: '',
+        hora_moto: '',
+        minuto_moto: '',
+        segundo_moto: ''
       },
       usuario_logeado: document.getElementsByName('correo_usuario')[0].content
     };
@@ -183,10 +197,7 @@ export default {
     },
     async consultaFactura(id) {
       await axios.get(`${this.route}${id}/consulta-factura`).then(res => {
-
-        this.calcularPrecio(res.data[0].created_at)
-
-
+        
         this.model = {
          tipo_vehiculo: res.data[0].tipo_vehiculo,
          placa: res.data[0].placa,
@@ -196,14 +207,51 @@ export default {
          cobrado_por: document.getElementsByName('correo_usuario')[0].content,
          iva: res.data[0].iva.porcentaje,
          descuento: res.data[0].descuento.porcentaje,
-         total: ''
+         total: this.calcularPrecio(res.data[0].created_at, res.data[0].tipo_vehiculo, res.data[0].iva.porcentaje)
        }
      })
     },
-    calcularPrecio(fechaCreado) {
-      var fecha1 = moment(new Date());
-      var fecha2 = moment(fechaCreado); 
-      console.log(moment.duration(fecha1.diff(fecha2))._data)
+    calcularPrecio(fechaCreado, tipoVehiculo, iva) {
+      var fecha1 = moment(new Date())
+      var fecha2 = moment(fechaCreado) 
+      let tiempo_tascurrido = moment.duration(fecha1.diff(fecha2))._data
+
+      if(tipoVehiculo = 1){
+        let precio_mes =  tiempo_tascurrido.months * this.precios.mes_moto
+        let precio_dias =  tiempo_tascurrido.days * this.precios.dia_moto
+        let precio_horas =  tiempo_tascurrido.hours * this.precios.hora_moto
+        let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_moto
+        let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_moto
+        let total = (precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) + (((precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva) / 100)
+        console.log(precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos)
+        return total
+      } else {
+        let precio_mes =  tiempo_tascurrido.months * this.precios.mes_carro
+        let precio_dias =  tiempo_tascurrido.days * this.precios.dia_carro
+        let precio_horas =  tiempo_tascurrido.hours * this.precios.hora_carro
+        let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_carro
+        let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_carro
+        let total = (precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) (((precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva) / 100)
+        console.log(precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos)
+        return total
+      }
+    },
+    async listar_precios() {
+      await axios.get(`${this.route2}lista-precios`).then(res => {
+        this.precios = {
+          id: res.data.id,
+          mes_carro: res.data[0].mes_carro,
+          dia_carro: res.data[0].dia_carro,
+          hora_carro: res.data[0].hora_carro,
+          minuto_carro: res.data[0].minuto_carro,
+          segundo_carro: res.data[0].segundo_carro,
+          mes_moto: res.data[0].mes_moto,
+          dia_moto: res.data[0].dia_moto,
+          hora_moto: res.data[0].hora_moto,
+          minuto_moto: res.data[0].minuto_moto,
+          segundo_moto: res.data[0].segundo_moto
+        }
+      })
     }
   },
   watch: {
@@ -229,6 +277,8 @@ export default {
           entries.map(entry => this.rows.push(entry));
         })
     .catch(err => console.log(err));
+
+    this.listar_precios()
   }
 };
 </script>
