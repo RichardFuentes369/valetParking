@@ -12,13 +12,13 @@
           <span slot="title">Acciones</span>
         </template>
         <el-menu-item index="1-1" class="nav-item">
-          <router-link :to="{ name: 'crear-factura'}" class="nav-link">Crear Factura</router-link>
+          <router-link :to="{ name: 'registro-clientes'}" class="nav-link">Registrar Clientes</router-link>
         </el-menu-item>
         <el-menu-item index="1-2" class="nav-item">
-          <router-link :to="{ name: 'cobrar-factura'}" class="nav-link">Cobrar Factura</router-link>
+          <router-link :to="{ name: 'crear-factura'}" class="nav-link">Crear Factura</router-link>
         </el-menu-item>
         <el-menu-item index="1-3" class="nav-item">
-          <router-link :to="{ name: 'registro-clientes'}" class="nav-link">Registrar Clientes</router-link>
+          <router-link :to="{ name: 'cobrar-factura'}" class="nav-link">Cobrar Factura</router-link>
         </el-menu-item>
       </el-submenu>
       <!-- configuracion -->

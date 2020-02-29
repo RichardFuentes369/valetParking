@@ -22,13 +22,13 @@
           <span slot="title">Formas de Pago</span>
         </template>
         <el-menu-item index="2-1">
-          <router-link :to="{ name: 'precios'}" class="nav-link">Precios</router-link>
+          <router-link :to="{ name: 'descuentos'}" class="nav-link">Descuentos</router-link>
         </el-menu-item>
         <el-menu-item index="2-2">
           <router-link :to="{ name: 'iva'}" class="nav-link">Iva</router-link>
         </el-menu-item>
         <el-menu-item index="2-3">
-          <router-link :to="{ name: 'descuentos'}" class="nav-link">Descuentos</router-link>
+          <router-link :to="{ name: 'precios'}" class="nav-link">Precios</router-link>
         </el-menu-item>
       </el-submenu>
       <!-- menu -->

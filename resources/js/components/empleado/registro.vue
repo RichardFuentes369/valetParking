@@ -15,10 +15,10 @@
           <div class="row">
             <div class="col-sm-6">
               <button class="btn btn-block btn-primary" circle data-toggle="modal" data-target="#CrearUsuario" @click="limpiar">Crear Cliente</button>
-            </div>
+            </div>    
             <div class="col-sm-6">
               <button class="btn btn-block btn-success" circle data-toggle="modal" data-target="#VerUsuario">Ver Clientes</button>
-            </div>
+            </div>     
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body scroll-y">
             <div class="card-body">
               <table class="table">
                 <thead>
@@ -252,5 +252,10 @@ export default {
   padding-right: 30px;
   border-right-width: 1px;
   width: 100%;
+}
+.scroll-y{
+  height: 20rem;
+  width: 100%;
+  overflow-y: auto;
 }
 </style>

@@ -19,7 +19,6 @@
       </div>
     </div>   
 
-
     <!-- Modal Cobrar -->
     <div class="modal fade bd-example-modal-xl" id="CobrarFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
@@ -40,6 +39,12 @@
                   <img v-else-if="model.tipo_vehiculo == 1" src="img/motorcicle.png" alt="..." class="img-thumbnail imagen">
                 </div>
                 <div class="col-sm-8">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Cliente mensual</span>
+                    </div>
+                    <input type="text" v-model="model.tipo_cliente" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                  </div>                    
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Cliente</span>
@@ -125,6 +130,7 @@ export default {
       route: 'api/facturas/',
       route2: 'api/precios/',
       model: {
+        tipo_cliente: '',
         cliente: '',
         tipo_cliente: '',
         tipo_vehiculo: '',
@@ -176,6 +182,7 @@ export default {
     limpiar() {
       this.id_factura = '',
       this.model = {
+        tipo_cliente: '',
         cliente: '',
         tipo_cliente: '',
         tipo_vehiculo: '',
@@ -194,6 +201,7 @@ export default {
         await this.consultaFactura(val)
       } else {
         this.model = {
+          tipo_cliente: '',
           cliente: '',
           tipo_cliente: '',
           tipo_vehiculo:'',
@@ -211,6 +219,7 @@ export default {
       await axios.get(`${this.route}${id}/consulta-factura`).then(res => {
         console.log(res.data)
         this.model = {
+          tipo_cliente: res.data[0].cliente.asociado,
           cliente: res.data[0].cliente.nombre+' '+res.data[0].cliente.apellido,
           tipo_cliente: res.data[0].cliente.asociado,
           tipo_vehiculo: res.data[0].tipo_vehiculo,
@@ -291,8 +300,6 @@ export default {
           return total
         }
       }
-
-
     },
     async listar_precios() {
       await axios.get(`${this.route2}lista-precios`).then(res => {

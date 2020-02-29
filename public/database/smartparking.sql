@@ -26,22 +26,24 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `fecha_nacimiento` date NOT NULL,
   `fijo` varchar(50) DEFAULT NULL,
   `celular` varchar(50) DEFAULT NULL,
+  `asociado` enum('Si','No','Empleado') DEFAULT 'No',
   `created_by` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla smartparking.clientes: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla smartparking.clientes: ~7 rows (aproximadamente)
 DELETE FROM `clientes`;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `td`, `dni`, `fecha_nacimiento`, `fijo`, `celular`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'No aplica', 'No aplica', 'cc', '0000', '2020-02-08', '******', '******', 'javierbaron6@gmail.com', '2020-02-08 19:44:14', NULL, NULL),
-	(2, 'jorge', 'baron', 'cc', '91216614', '1960-07-15', '6390751', '******', 'javierbaron6@gmail.com', '2020-02-10 02:31:26', '2020-02-10 02:31:26', NULL),
-	(3, 'Bettsy', 'Fuentes', 'cc', '63284586', '2020-02-12', '212', '1212', 'javierbaron6@gmail.com', '2020-02-10 02:32:25', '2020-02-10 02:32:25', NULL),
-	(4, 'raja', 'mijua', 'cc', '2121212', '2020-02-03', '121212', '23232', 'javierbaron6@gmail.com', '2020-02-10 02:44:39', '2020-02-10 02:44:39', NULL),
-	(5, 'No registrado', 'No registrado', 'cc', '0001', '2020-02-11', '******', '******', 'javierbaron6@gmail.com', '2020-02-11 17:38:27', NULL, NULL);
+INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `td`, `dni`, `fecha_nacimiento`, `fijo`, `celular`, `asociado`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+  (1, 'No registrado', 'No registrado', 'cc', '0001', '2020-02-11', '******', '******', 'No', 'javierbaron6@gmail.com', '2020-02-11 17:38:27', NULL, NULL),
+  (2, 'Gregorio', 'Pernia', 'cc', '23265589', '1957-02-12', '212', '1212', 'Empleado', 'javierbaron6@gmail.com', '2020-02-10 02:32:25', '2020-02-10 02:32:25', NULL),
+  (3, 'jorge', 'baron', 'cc', '91216614', '1960-07-15', '6390751', '******', 'Si', 'javierbaron6@gmail.com', '2020-02-10 02:31:26', '2020-02-10 02:31:26', NULL),
+  (4, 'Bettsy', 'Fuentes', 'cc', '63284586', '2020-02-12', '212', '1212', 'No', 'javierbaron6@gmail.com', '2020-02-10 02:32:25', '2020-02-10 02:32:25', NULL),
+  (5, 'Sergio', 'Rodriguez', 'cc', '23548896', '1960-07-15', '6390751', '******', 'No', 'javierbaron6@gmail.com', '2020-02-10 02:31:26', '2020-02-10 02:31:26', NULL),
+  (6, 'Jaime', 'Garzon', 'cc', '25879656', '1957-02-12', '212', '1212', 'Empleado', 'javierbaron6@gmail.com', '2020-02-10 02:32:25', '2020-02-10 02:32:25', NULL);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.descuento
@@ -61,10 +63,10 @@ CREATE TABLE IF NOT EXISTS `descuento` (
 DELETE FROM `descuento`;
 /*!40000 ALTER TABLE `descuento` DISABLE KEYS */;
 INSERT INTO `descuento` (`id`, `nombre`, `descripcion`, `porcentaje`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Sin descuento', 'Sin descuento', 0, 'javierbaron6@gmail.com', '2020-02-04 18:09:49', '2020-02-09 02:03:05', NULL),
-	(2, 'Aniversario parqueadero', 'Cada año se celebra', 15, 'javierbaron6@gmail.com', '2020-02-04 18:22:44', '2020-02-05 20:24:33', NULL),
-	(3, 'Bono de descuentos', 'esto es por una buena causa', 20, 'javierbaron6@gmail.com', '2020-02-04 18:23:58', '2020-02-05 00:14:47', NULL),
-	(4, 'Cumpleaños del Cliente', 'Cumpleaños del cliente', 15, 'javierbaron6@gmail.com', '2020-02-08 19:46:16', NULL, NULL);
+  (1, 'Sin descuento', 'Sin descuento', 0, 'javierbaron6@gmail.com', '2020-02-04 18:09:49', '2020-02-09 02:03:05', NULL),
+  (2, 'Aniversario parqueadero', 'Cada año se celebra', 15, 'javierbaron6@gmail.com', '2020-02-04 18:22:44', '2020-02-05 20:24:33', NULL),
+  (3, 'Bono de descuentos', 'esto es por una buena causa', 20, 'javierbaron6@gmail.com', '2020-02-04 18:23:58', '2020-02-05 00:14:47', NULL),
+  (4, 'Cumpleaños del Cliente', 'Cumpleaños del cliente', 15, 'javierbaron6@gmail.com', '2020-02-08 19:46:16', NULL, NULL);
 /*!40000 ALTER TABLE `descuento` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.facturas
@@ -92,14 +94,16 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   CONSTRAINT `FK_facturas_descuento` FOREIGN KEY (`id_descuento`) REFERENCES `descuento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_facturas_inpuesto_valor_agregado` FOREIGN KEY (`id_iva`) REFERENCES `impuesto_valor_agregado` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_facturas_precios` FOREIGN KEY (`id_precio`) REFERENCES `precios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla smartparking.facturas: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla smartparking.facturas: ~4 rows (aproximadamente)
 DELETE FROM `facturas`;
 /*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
 INSERT INTO `facturas` (`id`, `estado`, `id_cliente`, `id_descuento`, `placa`, `tipo_vehiculo`, `id_precio`, `id_iva`, `total`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(9, '1', 2, 1, 'pic17', '1', 11, 12, 0, 'jorgebaron85@gmail.com', NULL, '2020-02-16 22:28:35', '2020-02-16 22:28:35', NULL),
-	(10, '1', 2, 2, 'zgo213', '1', 11, 12, 0, 'jorgebaron85@gmail.com', NULL, '2020-02-16 23:39:07', '2020-02-16 23:39:07', NULL);
+  (1, '1', 1, 1, 'PIC17', '1', 12, 12, 0, 'jorgebaron85@gmail.com', NULL, '2020-02-28 23:14:07', '2020-02-28 23:14:07', NULL),
+  (2, '1', 4, 1, 'VFG12', '1', 12, 12, 0, 'jorgebaron85@gmail.com', NULL, '2020-02-28 23:14:31', '2020-02-28 23:14:31', NULL),
+  (3, '1', 3, 1, 'SA12', '0', 12, 12, 0, 'jorgebaron85@gmail.com', NULL, '2020-02-28 23:14:58', '2020-02-28 23:14:58', NULL),
+  (4, '1', 2, 1, 'EED1', '1', 12, 12, 0, 'jorgebaron85@gmail.com', NULL, '2020-02-28 23:15:43', '2020-02-28 23:15:43', NULL);
 /*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.impuesto_valor_agregado
@@ -119,9 +123,9 @@ CREATE TABLE IF NOT EXISTS `impuesto_valor_agregado` (
 DELETE FROM `impuesto_valor_agregado`;
 /*!40000 ALTER TABLE `impuesto_valor_agregado` DISABLE KEYS */;
 INSERT INTO `impuesto_valor_agregado` (`id`, `anho`, `porcentaje`, `descripcion`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(10, '2019', 18, 'este es el iva para el 2019', 'javierbaron6@gmail.com', '2020-02-12 18:08:46', '2020-02-16 22:22:10', '2020-02-16 22:22:10'),
-	(11, '2020', 20, 'este es el iva para el 2020', 'javierbaron6@gmail.com', '2020-02-12 21:28:01', '2020-02-15 01:44:12', '2020-02-15 01:44:12'),
-	(12, '2020', 53, '16', 'javierbaron6@gmail.com', '2020-02-15 01:44:26', '2020-02-15 01:44:26', NULL);
+  (10, '2019', 18, 'este es el iva para el 2019', 'javierbaron6@gmail.com', '2020-02-12 18:08:46', '2020-02-16 22:22:10', '2020-02-16 22:22:10'),
+  (11, '2020', 20, 'este es el iva para el 2020', 'javierbaron6@gmail.com', '2020-02-12 21:28:01', '2020-02-15 01:44:12', '2020-02-15 01:44:12'),
+  (12, '2020', 15, '16', 'javierbaron6@gmail.com', '2020-02-15 01:44:26', '2020-02-19 22:08:17', NULL);
 /*!40000 ALTER TABLE `impuesto_valor_agregado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.informacion_empresa
@@ -146,34 +150,36 @@ CREATE TABLE IF NOT EXISTS `informacion_empresa` (
 DELETE FROM `informacion_empresa`;
 /*!40000 ALTER TABLE `informacion_empresa` DISABLE KEYS */;
 INSERT INTO `informacion_empresa` (`id`, `mision`, `vision`, `direccion`, `barrio`, `ciudad`, `pais`, `telefono`, `ubicacion_gps`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Ahora la mision de la empresa cambiara', 'Ahora la vision de la empresa cambiara', 'calle 6 # 12-72', 'villabel', 'bucaramanga', 'colombia', '6390751', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.3942777001575!2d-73.10383195314192!3d7.080205946973073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e683f9d84661d41%3A0x991c3ee52067c84!2sCAI%20Villabel!5e0!3m2!1sen!2sco!4v1580947475354!5m2!1sen!2sco', 'richard', '2020-01-04 17:02:28', '2020-02-08 20:30:49', NULL);
+  (1, 'Ahora la mision de la empresa cambiara', 'Ahora la vision de la empresa cambiara', 'calle 6 # 12-72', 'villabel', 'bucaramanga', 'colombia', '6390751', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.3942777001575!2d-73.10383195314192!3d7.080205946973073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e683f9d84661d41%3A0x991c3ee52067c84!2sCAI%20Villabel!5e0!3m2!1sen!2sco!4v1580947475354!5m2!1sen!2sco', 'richard', '2020-01-04 17:02:28', '2020-02-08 20:30:49', NULL);
 /*!40000 ALTER TABLE `informacion_empresa` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.precios
 CREATE TABLE IF NOT EXISTS `precios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cuarto_moto` double DEFAULT NULL,
-  `media_moto` double DEFAULT NULL,
+  `segundo_moto` double DEFAULT NULL,
+  `minuto_moto` double DEFAULT NULL,
   `hora_moto` double DEFAULT NULL,
-  `semana_moto` double DEFAULT NULL,
+  `dia_moto` double DEFAULT NULL,
   `mes_moto` double DEFAULT NULL,
-  `cuarto_carro` double DEFAULT NULL,
-  `media_carro` double DEFAULT NULL,
+  `ano_moto` double DEFAULT NULL,
+  `segundo_carro` double DEFAULT NULL,
+  `minuto_carro` double DEFAULT NULL,
   `hora_carro` double DEFAULT NULL,
-  `semana_carro` double DEFAULT NULL,
+  `dia_carro` double DEFAULT NULL,
   `mes_carro` double DEFAULT NULL,
+  `ano_carro` double DEFAULT NULL,
   `created_by` varchar(50) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla smartparking.precios: ~1 rows (aproximadamente)
 DELETE FROM `precios`;
 /*!40000 ALTER TABLE `precios` DISABLE KEYS */;
-INSERT INTO `precios` (`id`, `cuarto_moto`, `media_moto`, `hora_moto`, `semana_moto`, `mes_moto`, `cuarto_carro`, `media_carro`, `hora_carro`, `semana_carro`, `mes_carro`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(11, 500, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'javierbaron6@gmail.com', '2020-02-16 22:22:04', '2020-02-16 22:22:04', NULL);
+INSERT INTO `precios` (`id`, `segundo_moto`, `minuto_moto`, `hora_moto`, `dia_moto`, `mes_moto`, `ano_moto`, `segundo_carro`, `minuto_carro`, `hora_carro`, `dia_carro`, `mes_carro`, `ano_carro`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+  (12, 1, 17, 1000, 1000, 30000, 360000, 2, 34, 2000, 2000, 60000, 720000, 'javierbaron6@gmail.com', '2020-02-28 01:32:09', '2020-02-28 19:43:49', NULL);
 /*!40000 ALTER TABLE `precios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.roles
@@ -187,15 +193,14 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `created_by` varchar(50) DEFAULT NULL,
   `deleted_by` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla smartparking.roles: ~4 rows (aproximadamente)
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `deleted_by`) VALUES
-	(1, 'Super Administrador', 'Control total del sistesma', '2020-01-04 16:57:47', '2020-02-16 22:14:25', NULL, NULL, NULL),
-	(2, 'Empleados', 'Empleado del lugar', '2020-01-12 14:51:43', '2020-02-09 02:16:46', NULL, NULL, NULL),
-	(3, 'Cliente', 'Cliente del lugar', '2020-01-16 21:49:20', '2020-02-05 00:10:24', NULL, NULL, NULL);
+  (1, 'Super Administrador', 'Control total del sistesma', '2020-01-04 16:57:47', '2020-02-16 22:14:25', NULL, NULL, NULL),
+  (2, 'Empleados', 'Empleado del lugar', '2020-01-12 14:51:43', '2020-02-09 02:16:46', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla smartparking.usuarios
@@ -219,15 +224,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id`),
   KEY `FK_usuarios_roles` (`id_rol`),
   CONSTRAINT `FK_usuarios_roles` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla smartparking.usuarios: ~3 rows (aproximadamente)
 DELETE FROM `usuarios`;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `td`, `dni`, `email`, `password`, `fecha_nacimiento`, `telefono_fijo`, `telefono_celular`, `inicio_contrato`, `fin_contrato`, `id_rol`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Javier Ricardo', 'Baron Fuentes', 'cc', '1098785729', 'javierbaron6@gmail.com', '$2y$10$nZdIuVPqVeFz5CHFYJHYhedRL/FJZROlioGJySeqr30XzjkVqCqMC', '1996-06-01', '6390751', '3504284093', '2020-01-04', '2020-01-04', 1, '2020-01-04 16:55:02', NULL, NULL),
-	(2, 'Jorge Enrique', 'Baron Fuentes', 'cc', '1098603545', 'jorgebaron85@gmail.com', '$2y$10$nZdIuVPqVeFz5CHFYJHYhedRL/FJZROlioGJySeqr30XzjkVqCqMC', '1996-06-01', '6390751', '3504284093', '2020-01-04', '2020-01-04', 2, '2020-01-04 16:55:02', '2020-01-12 14:52:19', NULL),
-	(3, 'yesid', 'valencia', 'cc', '106896336', 'yesid@gmail.com', '$2y$10$HcxjqywtAsugQr7yv9924.G.L.skOErl9dK4rsorgMDPMWfYSpmdi', '2020-01-08', '6398785', '36589636', NULL, NULL, 3, '2020-01-16 22:33:13', '2020-01-16 22:33:13', NULL);
+  (1, 'Javier Ricardo', 'Baron Fuentes', 'cc', '1098785729', 'javierbaron6@gmail.com', '$2y$10$nZdIuVPqVeFz5CHFYJHYhedRL/FJZROlioGJySeqr30XzjkVqCqMC', '1996-06-01', '6390751', '3504284093', '2020-01-04', '2020-01-04', 1, '2020-01-04 16:55:02', NULL, NULL),
+  (2, 'Jorge Enrique', 'Baron Fuentes', 'cc', '1098603545', 'jorgebaron85@gmail.com', '$2y$10$nZdIuVPqVeFz5CHFYJHYhedRL/FJZROlioGJySeqr30XzjkVqCqMC', '1996-06-01', '6390751', '3504284093', '2020-01-04', '2020-01-04', 2, '2020-01-04 16:55:02', '2020-01-12 14:52:19', NULL),
+  (19, 'Pedro', 'Capo', 'cc', '10986325478', 'pedro.capo@gmail.com', '$2y$10$nZdIuVPqVeFz5CHFYJHYhedRL/FJZROlioGJySeqr30XzjkVqCqMC', '1996-06-01', '6390751', '3504284093', '2020-01-04', '2020-01-04', 2, '2020-01-04 16:55:02', '2020-01-12 14:52:19', NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

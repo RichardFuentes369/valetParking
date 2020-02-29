@@ -15,7 +15,7 @@ class FacturasController extends Controller
 
 	public function lista(){
 		try {
-			$consulta = facturas::where('estado','1')->orderBy('id','desc')->get();
+			$consulta = facturas::where('estado','1')->with('cliente')->orderBy('id','desc')->get();
 			return $consulta;
 		} catch (\Exception $e) {
 			return $e;
