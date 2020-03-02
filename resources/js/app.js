@@ -12,6 +12,7 @@ import element from './element'
 import axios from './axios'
 import component from './registercomponent'
 import router from './routes'
+import moment from './moment'
 
 
 import 'bootstrap-css-only/css/bootstrap.min.css'

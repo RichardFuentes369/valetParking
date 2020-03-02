@@ -106,7 +106,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Cobrar</button>
+            <button type="button" class="btn btn-primary" @click="facturar">Cobrar</button>
           </div>
         </div>
       </div>
@@ -319,6 +319,12 @@ export default {
           segundo_moto: res.data[0].segundo_moto
         }
       })
+    },
+    async facturar() {
+      //update a una api route que me ponga el estado en 0 y que me inserte el valor del total
+      console.log(this.model)
+      //vuelvo a listar las facturas
+      // cierro el modal
     }
   },
   watch: {
@@ -327,7 +333,7 @@ export default {
     },
   },  
   mounted(){
-    fetch('http://valetparking.test:3000/api/facturas/lista-facturas')
+    fetch('http://valetparking.test:3000/api/facturas/lista-facturas-por-cobrar')
     .then(res => res.json())
     .then(json => {
       let keys = ["id", "placa", "tipo_vehiculo", "estado"];
