@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\{
+	DB,
+	Auth
+};
 use App\Models\{
 	facturas,
 	impuesto_valor_agregado,
@@ -33,6 +36,7 @@ class FacturasController extends Controller
 	
 	public function crear(Request $request) {
 		try {
+			// return $request;
 			$nuevo_registro = new facturas();
 			$nuevo_registro->id_cliente = $request->cliente['id'];
 			$nuevo_registro->id_descuento = $request->descuento;
@@ -56,6 +60,19 @@ class FacturasController extends Controller
 		try {
 			$consulta = facturas::where('id', $id)->with('cliente', 'descuento', 'iva')->get();
 			return $consulta;
+		} catch (Exception $e) {
+			return $e;
+		}
+	}
+
+	public function cobrarFactura(Request $request, $id_factura){
+		try {
+			$actualziar_registro = facturas::where('id', $id_factura)->first();
+			$actualziar_registro->total = $request->total;
+			$actualziar_registro->estado = '0';
+			$actualziar_registro->updated_by = $request->usuario_logeado;
+			$actualziar_registro->save();
+			return 'cobro exitosamente';
 		} catch (Exception $e) {
 			return $e;
 		}

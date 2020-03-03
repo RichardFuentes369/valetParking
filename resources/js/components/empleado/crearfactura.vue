@@ -13,6 +13,14 @@
 									<div class="row mr-5">
 										<div class="col-sm-12 row">
 											<div class="col-sm-4 text-right">
+												<label for="">Tipo Cliente</label>
+											</div>
+											<div class="col-sm-8">
+												<input type="text" :value="model.cliente.asociado" class="mt-1 form-control text-center" readonly>
+											</div>
+										</div>
+										<div class="col-sm-12 row">
+											<div class="col-sm-4 text-right">
 												<label for="">Nombre</label>
 											</div>
 											<div class="col-sm-8">
@@ -55,8 +63,9 @@
 							</div>
 							<div class="col-sm-6">
 								<h3 class="text-center">Factura</h3>
-								<div class="row">
-									<div class="col-sm-6">
+								<div class="col-sm-12">
+									<div class="col-sm-12">Tipo vehiculo</div>
+									<div class="col-sm-12">
 										<el-select v-model="model.tipo_vehiculo" placeholder="Select" class="form-control-file">
 											<el-option
 											v-for="item in tipo_vehicilos"
@@ -65,7 +74,10 @@
 											:value="item.value" />
 										</el-select>
 									</div>
-									<div class="col-sm-6">
+								</div>
+								<div v-show="model.cliente.asociado == 1" class="col-sm-12 mt-2">
+									<div class="col-sm-12">Descuento</div>
+									<div class="col-sm-12">
 										<el-select v-model="model.descuento" placeholder="Select" class="form-control-file">
 											<el-option
 											v-for="descuento in descuentos"
@@ -76,20 +88,21 @@
 											<span style="float: right; color: #8492a6; font-size: 13px">{{ descuento.porcentaje }}</span>
 										</el-option>
 									</el-select>
-								</div>									
-							</div>
+								</div>
+							</div>					
 							<div class="col-sm-12">
 								<input type="text" class="form-control mt-3 bg-dark text-white text-center text-uppercase" v-model="model.placa" placeholder="PLACA" required> 
 							</div>
 							<h3 class="text-center mt-3">Empleado</h3>
 							<input type="text" :value="model.usuario_logeado" class="form-control text-center mt-2" readonly>		
-							<button :disabled="active" class="btn btn-success btn-block mt-3" @click="crearFactura">Generar Factura</button>
+							<button :disabled="active" class="btn btn-success btn-block mt-3" @click="crearFactura">Generar Factura</button>				
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 </template>
 

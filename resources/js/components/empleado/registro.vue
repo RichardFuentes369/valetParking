@@ -161,36 +161,37 @@ export default {
         dni: '',
         fecha_nacimiento: '',
         fijo: '',
-        celular: ''
+        celular: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       },
       clientes: [],
       conteo: '',
       options: [
       {
         label: 'CC',
-        value: 'cc'
+        value: '1'
       },
       {
         label: 'TI',
-        value: 'ti'
+        value: '2'
       },
       {
         label: 'CE',
-        value: 'ce'
+        value: '3'
       }
       ],
       options2: [
       {
-        label: 'Si',
-        value: 'Si'
+        label: 'No Cliente',
+        value: '1'
       },
       {
-        label: 'No',
-        value: 'No'
+        label: 'Es Cliente',
+        value: '2'
       },
       {
-        label: 'Empleado',
-        value: 'Empleado'
+        label: 'Es Empleado',
+        value: '3'
       }
       ]
     };
@@ -208,7 +209,8 @@ export default {
         dni: '',
         fecha_nacimiento: '',
         fijo: '',
-        celular: ''
+        celular: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
     },
     async lista_clientes() {

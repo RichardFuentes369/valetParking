@@ -80,7 +80,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">cobrado por</span>
                     </div>
-                    <input type="text" v-model="usuario_logeado" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                    <input type="text" v-model="model.usuario_logeado" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -140,7 +140,8 @@ export default {
         creado_por:'',
         iva: '',
         descuento: '',
-        total: ''
+        total: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       },
       precios: {
         id: '',
@@ -155,7 +156,6 @@ export default {
         minuto_moto: '',
         segundo_moto: ''
       },
-      usuario_logeado: document.getElementsByName('correo_usuario')[0].content
     };
   },
   computed: {
@@ -192,8 +192,28 @@ export default {
         creado_por:'',
         iva: '',
         descuento: '',
-        total: ''
+        total: '',
+        usuario_logeado: document.getElementsByName('correo_usuario')[0].content
       }
+    },
+    async listarFacturas() {
+      fetch('http://valetparking.test:3000/api/facturas/lista-facturas-por-cobrar')
+      .then(res => res.json())
+      .then(json => {
+        let keys = ["id", "placa", "tipo_vehiculo", "estado"];
+        let entries = this.filterData(json, keys);
+          //columns
+          this.columns = keys.map(key => {
+            return {
+              label: key.toUpperCase(),
+              field: key,
+              sort: 'asc'
+            };
+          });
+          //rows
+          entries.map(entry => this.rows.push(entry));
+        })
+      .catch(err => console.log(err));
     },
     async filtrar(val) {
       let factura = this.rows.find(o => o.id == val)
@@ -211,7 +231,8 @@ export default {
           cobrado_por: '',
           iva: '',
           descuento: '',
-          total: ''
+          total: '',
+          usuario_logeado: document.getElementsByName('correo_usuario')[0].content
         }
       }
     },
@@ -229,8 +250,9 @@ export default {
           hora_creacion: moment(res.data[0].created_at).format('LT'),
           cobrado_por: document.getElementsByName('correo_usuario')[0].content,
           iva: res.data[0].iva.porcentaje,
-          descuento: res.data[0].descuento.porcentaje,
-          total: this.calcularPrecio(res.data[0].created_at, res.data[0].tipo_vehiculo, res.data[0].iva.porcentaje, res.data[0].cliente.asociado)
+          descuento: res.data[0].id_descuento == null ? '0' : res.data[0].descuento.porcentaje,
+          total: this.calcularPrecio(res.data[0].created_at, res.data[0].tipo_vehiculo, res.data[0].iva.porcentaje, res.data[0].cliente.asociado),
+          usuario_logeado: document.getElementsByName('correo_usuario')[0].content
         }
       })
     },
@@ -238,14 +260,14 @@ export default {
       var fecha1 = moment(new Date())
       var fecha2 = moment(fechaCreado) 
       let tiempo_tascurrido = moment.duration(fecha1.diff(fecha2))._data
-      /** let total = (precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) (((precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva) / 100) **/
 
-      if(esCliente == 'Empleado'){
+      if(esCliente == '3'){
         console.log('es empleado')
         return 0
       }
 
-      if(esCliente == 'Si'){
+      if(esCliente == '2'){
+        // flata el descuento
         if(tipoVehiculo == 1){
           let precio_ano =  tiempo_tascurrido.years * this.precios.ano_moto
           let precio_mes =  tiempo_tascurrido.months * this.precios.mes_moto
@@ -259,6 +281,7 @@ export default {
           console.log(total)
           return total
         } else {
+        // flata el descuento
           let precio_ano =  tiempo_tascurrido.years * this.precios.ano_carro
           let precio_mes =  tiempo_tascurrido.months * this.precios.mes_carro
           let precio_dias =  tiempo_tascurrido.days * this.precios.dia_carro
@@ -272,8 +295,9 @@ export default {
           return total
         }
       }
-      if(esCliente == 'No'){
+      if(esCliente == '1'){
         if(tipoVehiculo == 1){
+        // flata el descuento
           let precio_ano =  tiempo_tascurrido.years * (8640 * this.precios.hora_moto)
           let precio_mes =  tiempo_tascurrido.months * (720 * this.precios.hora_moto)
           let precio_dias =  tiempo_tascurrido.days * (24 * this.precios.hora_moto)
@@ -286,6 +310,7 @@ export default {
           console.log(total)
           return total
         } else {
+        // flata el descuento
           let precio_ano =  tiempo_tascurrido.years * (8640 * this.precios.hora_carro)
           let precio_mes =  tiempo_tascurrido.months * (720 * this.precios.hora_carro)
           let precio_dias =  tiempo_tascurrido.days * (24 * this.precios.hora_carro)
@@ -320,11 +345,16 @@ export default {
         }
       })
     },
-    async facturar() {
-      //update a una api route que me ponga el estado en 0 y que me inserte el valor del total
-      console.log(this.model)
-      //vuelvo a listar las facturas
-      // cierro el modal
+    async facturar() { 
+      await axios.put(`${this.route}${this.id_factura}/actualizar-estado-factura`, this.model)
+      this.rows = []
+      await this.listarFacturas()
+      this.$notify({
+        title: 'Success',
+        message: 'Se cobro la correctamente',
+        type: 'success'
+      });
+      $('#CobrarFactura').modal('hide')
     }
   },
   watch: {
@@ -333,24 +363,7 @@ export default {
     },
   },  
   mounted(){
-    fetch('http://valetparking.test:3000/api/facturas/lista-facturas-por-cobrar')
-    .then(res => res.json())
-    .then(json => {
-      let keys = ["id", "placa", "tipo_vehiculo", "estado"];
-      let entries = this.filterData(json, keys);
-          //columns
-          this.columns = keys.map(key => {
-            return {
-              label: key.toUpperCase(),
-              field: key,
-              sort: 'asc'
-            };
-          });
-          //rows
-          entries.map(entry => this.rows.push(entry));
-        })
-    .catch(err => console.log(err));
-
+    this.listarFacturas()
     this.listar_precios()
   }
 };

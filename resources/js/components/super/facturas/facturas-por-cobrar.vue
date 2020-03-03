@@ -5,32 +5,34 @@
 			<div class="card-body scroll-y">
 				<div class="card-body">
 					<table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Cliente</th>
-                <th scope="col">Placa</th>
-                <th scope="col">Total a Pagar</th>
-                <th scope="col">Tipo Cliente</th>
-                <th scope="col">Creado Por</th>
-                <th scope="col">Fecha de Creacion</th>
-              </tr>
-            </thead>
-							<tr v-for="(cobrar, key) in porCobrar">
-								<td scope="col">{{key+1}}</td>
-								<td scope="col">{{cobrar.cliente.nombre}} {{cobrar.cliente.apellido}}</td>
-								<td scope="col">{{cobrar.placa}}</td>
-								<td scope="col">{{cobrar.total}}</td>
-								<td scope="col">{{cobrar.cliente.asociado}}</td>
-								<th scope="col">{{cobrar.created_by}}</th>
-								<td scope="col">{{cobrar.created_at | fecha}}</td>
-							</tr> 
-						</tbody>
-					</table>
-				</div>
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Factura</th>
+								<th scope="col">Cliente</th>
+								<th scope="col">Placa</th>
+								<th scope="col">Total a Pagar</th>
+								<th scope="col">Tipo Cliente</th>
+								<th scope="col">Creado Por</th>
+								<th scope="col">Fecha de Creacion</th>
+							</tr>
+						</thead>
+						<tr v-for="(cobrar, key) in porCobrar">
+							<td scope="col">{{key+1}}</td>
+							<td scope="col">{{cobrar.id}}</td>
+							<td scope="col">{{cobrar.cliente.nombre}} {{cobrar.cliente.apellido}}</td>
+							<td scope="col">{{cobrar.placa}}</td>
+							<td scope="col">{{cobrar.total}}</td>
+							<td scope="col">{{cobrar.cliente.asociado}}</td>
+							<th scope="col">{{cobrar.created_by}}</th>
+							<td scope="col">{{cobrar.created_at | fecha}}</td>
+						</tr> 
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -42,13 +44,13 @@ export default {
 			porCobrar: [],
 		};
 	},
-  filters: {
-    fecha: function(value) {
-      if (!value) return 'no tiene fecha'
-        value = moment(value).format('LLL');
-      return value
-    }
-  },
+	filters: {
+		fecha: function(value) {
+			if (!value) return 'no tiene fecha'
+				value = moment(value).format('LLL');
+			return value
+		}
+	},
 	mounted() {
 		this.facturasPorCobrar()
 	},

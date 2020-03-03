@@ -8,6 +8,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
+                <th scope="col">ID</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Placa</th>
                 <th scope="col">Total Pago</th>
@@ -19,7 +20,8 @@
             </thead>
             <tbody>
               <tr v-for="(cobrada, key) in cobradas">
-                <td scope="col">{{key+1}}/td>
+                <td scope="col">{{key+1}}</td>
+                <td scope="col">{{cobrada.id}}</td>
                 <td scope="col">{{cobrada.cliente.nombre}} {{cobrada.cliente.apellido}}</td>
                 <td scope="col">{{cobrada.placa}}</td>
                 <td scope="col">{{cobrada.cliente.asociado}}</td>
