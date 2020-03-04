@@ -21,6 +21,15 @@ class UserController extends Controller
     }
   }
 
+  public function ajustes($correo){
+    try {
+      $consulta = usuarios::where('email', $correo)->first();
+      return $consulta;
+    } catch (\Exception $e) {
+        return $e;
+    }
+  }
+
   public function crear(Request $request){
     try {
       $fecha_na = Carbon::parse($request->fecha_nacimiento);
