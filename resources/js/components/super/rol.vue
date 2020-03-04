@@ -246,33 +246,46 @@ export default {
       })
     },
     async crear_rol() {
-      await axios.post(`${this.route}crear-rol`, this.model)
-      this.$notify({
-        title: 'Success',
-        message: 'Rol creado exitosamente',
-        type: 'success'
-      });
-      this.lista_roles()
-      this.limpiarModel()
-      $('#CrearRol').modal('hide')
-      this.model = {
-        nombre: '',
-        descripcion: ''
+      if(this.model.nombre){
+        await axios.post(`${this.route}crear-rol`, this.model)
+        this.$notify({
+          title: 'Success',
+          message: 'Rol creado exitosamente',
+          type: 'success'
+        });
+        this.lista_roles()
+        this.limpiarModel()
+        $('#CrearRol').modal('hide')
+        this.model = {
+          nombre: '',
+          descripcion: ''
+        }
+      } else {
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
       }
     },
     async actualizar_rol(rol) {
       this.model = {
         nombre: rol.nombre,
         descripcion: rol.descripcion
-      },
-      await axios.put(`${this.route}${rol.id}/actualizar-rol`, this.model)
-      this.lista_roles()
-      this.limpiarModel()
-      this.$notify({
-        title: 'Success',
-        message: 'Se actualizo el rol correctamente',
-        type: 'success'
-      });
+      }
+      if(this.model.nombre != ''){
+        await axios.put(`${this.route}${rol.id}/actualizar-rol`, this.model)
+        this.lista_roles()
+        this.limpiarModel()
+        this.$notify({
+          title: 'Success',
+          message: 'Se actualizo el rol correctamente',
+          type: 'success'
+        });
+      } else {
+        this.lista_roles()
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
+      }
     },
     async eliminarRol(id) {
       await axios.delete(`${this.route}${id}/eliminar-rol`)
@@ -309,26 +322,32 @@ export default {
       this.model2.id_rol = rol_id
     },
     async crear_usuario() {
-      await axios.post(`${this.route2}crear-usuario`, this.model2)
-      this.$notify({
-        title: 'Success',
-        message: 'Usuario Creado exitosamente',
-        type: 'success'
-      });
-      this.lista_roles()
-      $('#CrearUsuarios').modal('hide')
-      this.model2 = {
-        nombre: '',
-        apellido: '',
-        td: '',
-        dni: '',
-        email: '',
-        fecha_nacimiento: '',
-        telefono_fijo: '',
-        telefono_celular: '',
-        inicio_contrato: '',
-        fin_contrato: '',
-        id_rol: ''
+      if(this.model2.td != '' && this.model2.dni != '' && this.model2.email != '' && this.model2.fecha_nacimiento){
+        await axios.post(`${this.route2}crear-usuario`, this.model2)
+        this.$notify({
+          title: 'Success',
+          message: 'Usuario Creado exitosamente',
+          type: 'success'
+        });
+        this.lista_roles()
+        $('#CrearUsuarios').modal('hide')
+        this.model2 = {
+          nombre: '',
+          apellido: '',
+          td: '',
+          dni: '',
+          email: '',
+          fecha_nacimiento: '',
+          telefono_fijo: '',
+          telefono_celular: '',
+          inicio_contrato: '',
+          fin_contrato: '',
+          id_rol: ''
+        }
+      } else {
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
       }
     },
     async eliminarUsuario(id) {

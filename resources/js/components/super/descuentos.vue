@@ -103,19 +103,25 @@ export default {
       })
     },
     async crear_descuento() {
-      await axios.post(`${this.route}crear-descuento`, this.model)
-      this.$notify({
-        title: 'Success',
-        message: 'Descuento creado exitosamente',
-        type: 'success'
-      });
-      this.lista_descuento()
-      this.limpiar()
-      $('#CrearDescuento').modal('hide')
-      this.model = {
-        nombre: '',
-        descripcion: '',
-        porcentaje: ''
+      if(this.model.nombre != '' && this.model.porcentaje != ''){
+        await axios.post(`${this.route}crear-descuento`, this.model)
+        this.$notify({
+          title: 'Success',
+          message: 'Descuento creado exitosamente',
+          type: 'success'
+        });
+        this.lista_descuento()
+        this.limpiar()
+        $('#CrearDescuento').modal('hide')
+        this.model = {
+          nombre: '',
+          descripcion: '',
+          porcentaje: ''
+        }
+      } else {
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
       }
     },
     async actualizar_descuento(descuento) {
@@ -123,14 +129,21 @@ export default {
         nombre: descuento.nombre,
         descripcion: descuento.descripcion,
         porcentaje: descuento.porcentaje
-      },
-      await axios.put(`${this.route}${descuento.id}/actualizar-descuento`, this.model)
-      this.lista_descuento()
-      this.$notify({
-        title: 'Success',
-        message: 'Se actualizo el descuento correctamente',
-        type: 'success'
-      });
+      }
+      if(this.model.nombre != '' && this.model.porcentaje != ''){
+        await axios.put(`${this.route}${descuento.id}/actualizar-descuento`, this.model)
+        this.lista_descuento()
+        this.$notify({
+          title: 'Success',
+          message: 'Se actualizo el descuento correctamente',
+          type: 'success'
+        });
+      } else {
+        this.lista_descuento()
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
+      }
     },
     async eliminarDescuento(id) {
       await axios.delete(`${this.route}${id}/eliminar-descuento`)

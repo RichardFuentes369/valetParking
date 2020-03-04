@@ -220,15 +220,21 @@ export default {
       this.conteo = this.clientes.length
     },
     async crear_cliente() {
-      await axios.post(`${this.route}crear-cliente`, this.model)
-      this.$notify({
-        title: 'Success',
-        message: 'Cliente creado exitosamente',
-        type: 'success'
-      });
-      this.limpiar()
-      this.lista_clientes()
-      $('#CrearUsuario').modal('hide')
+      if(this.model.td =! '' && this.model.dni != ''){
+        await axios.post(`${this.route}crear-cliente`, this.model)
+        this.$notify({
+          title: 'Success',
+          message: 'Cliente creado exitosamente',
+          type: 'success'
+        });
+        this.limpiar()
+        this.lista_clientes()
+        $('#CrearUsuario').modal('hide')
+      } else {
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
+      }
     },
   }
 };

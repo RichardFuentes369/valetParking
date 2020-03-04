@@ -105,28 +105,41 @@ export default {
       })
     },
     async crear_iva() {
-      await axios.post(`${this.route}crear-iva`, this.model)
-      this.$notify({
-        title: 'Success',
-        message: 'IVA creado exitosamente',
-        type: 'success'
-      });
-      this.lista_iva()
-      this.limpiar()
-      $('#CrearIva').modal('hide')
+      if(this.model.anho != '' && this.model.porcentaje != ''){
+        await axios.post(`${this.route}crear-iva`, this.model)
+        this.$notify({
+          title: 'Success',
+          message: 'IVA creado exitosamente',
+          type: 'success'
+        });
+        this.lista_iva()
+        this.limpiar()
+        $('#CrearIva').modal('hide')
+      } else {
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });
+      }
     },
     async actualizar_iva(iva) {
       this.model = {
         porcentaje: iva.porcentaje
-      },
-      await axios.put(`${this.route}${iva.id}/actualizar-iva`, this.model)
-      this.lista_iva()
-      this.limpiar()
-      this.$notify({
-        title: 'Success',
-        message: 'Se actualizo el IVA correctamente',
-        type: 'success'
-      });
+      }
+      if(this.model.porcentaje != ''){
+        await axios.put(`${this.route}${iva.id}/actualizar-iva`, this.model)
+        this.lista_iva()
+        this.limpiar()
+        this.$notify({
+          title: 'Success',
+          message: 'Se actualizo el IVA correctamente',
+          type: 'success'
+        });        
+      } else { 
+        this.lista_iva()
+        this.$notify.error({
+          message: 'Algunos campos no pueden ir vacios',
+        });  
+      }
     },
     async eliminarIva(id) {
       await axios.delete(`${this.route}${id}/eliminar-iva`)

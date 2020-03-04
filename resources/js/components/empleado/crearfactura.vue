@@ -168,7 +168,7 @@ export default {
 			}
 		},
 		async crearFactura() {
-			if(this.model.placa != ''){
+			if(this.model.placa != '' && this.model.tipo_vehiculo != ''){
 				await axios.post(`${this.route3}crear-factura`, this.model)
 				this.$notify({
 					title: 'Success',
@@ -184,7 +184,9 @@ export default {
 					usuario_logeado: document.getElementsByName('correo_usuario')[0].content
 				}	
 			} else {
-				alert('DEBE INGRESAR LA PLACA')
+				this.$notify.error({
+					message: 'Algunos campos no pueden ir vacios',
+				});  
 			}			
 		}
 	}
