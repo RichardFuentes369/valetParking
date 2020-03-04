@@ -113,23 +113,23 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Asociado</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Td</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Fecha Nacimiento</th>
-                    <th scope="col">Fijo</th>
-                    <th scope="col">Celular</th>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">Nombre</th>
+                    <th scope="col" class="text-center">Apellido</th>
+                    <th scope="col" class="text-center">Asociado</th>
+                    <th scope="col" class="text-center">Td</th>
+                    <th scope="col" class="text-center">DNI</th>
+                    <th scope="col" class="text-center">Fecha Nacimiento</th>
+                    <th scope="col" class="text-center">Fijo</th>
+                    <th scope="col" class="text-center">Celular</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(cliente, index) in clientes">
-                    <th scope="row">{{cliente.id}}</th>
-                    <th scope="row">{{cliente.asociado}}</th>
+                    <td scope="row">{{cliente.id}}</td>
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.apellido}}</td>
+                    <td class="text-center">{{cliente.asociado}}</td>
                     <td>{{cliente.td}}</td>
                     <td>{{cliente.dni}}</td>
                     <td>{{cliente.fecha_nacimiento}}</td>

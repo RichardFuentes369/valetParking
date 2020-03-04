@@ -37,6 +37,20 @@
                   <img v-if="model.tipo_vehiculo == ''" src="img/sinImagen.jpg" alt="..." class="img-thumbnail imagen">
                   <img v-else-if="model.tipo_vehiculo == 0" src="img/car.jpg" alt="..." class="img-thumbnail imagen">
                   <img v-else-if="model.tipo_vehiculo == 1" src="img/motorcicle.png" alt="..." class="img-thumbnail imagen">
+                  <div class="mt-3 container border-1">
+                    <div class="row">
+                      <label for="">Cantidad a pagar</label>
+                      <input v-model="calcular.cantidad" type="number" class="form-control" min="0">
+                    </div>       
+                    <div class="row">
+                      <label for="">Pago</label>
+                      <input v-model="calcular.pago" type="number" class="form-control" min="0">
+                    </div>
+                    <button class="btn btn-block btn-success" @click="vueltos">Calcular</button>
+                    <hr>
+                    <label for="">Vueltos</label>
+                    <input v-model="calcular.vueltos" type="number" class="form-control" readonly>
+                  </div>
                 </div>
                 <div class="col-sm-8">
                   <div class="input-group mb-3">
@@ -156,6 +170,11 @@ export default {
         minuto_moto: '',
         segundo_moto: ''
       },
+      calcular: {
+        pago: '',
+        cantidad: '',
+        vueltos: ''
+      }
     };
   },
   computed: {
@@ -194,6 +213,11 @@ export default {
         descuento: '',
         total: '',
         usuario_logeado: document.getElementsByName('correo_usuario')[0].content
+      },
+      this.calcular = {
+        pago: '',
+        cantidad: '',
+        vueltos: ''
       }
     },
     async listarFacturas() {
@@ -238,7 +262,6 @@ export default {
     },
     async consultaFactura(id) {
       await axios.get(`${this.route}${id}/consulta-factura`).then(res => {
-        console.log(res.data)
         this.model = {
           tipo_cliente: res.data[0].cliente.asociado,
           cliente: res.data[0].cliente.nombre+' '+res.data[0].cliente.apellido,
@@ -251,23 +274,21 @@ export default {
           cobrado_por: document.getElementsByName('correo_usuario')[0].content,
           iva: res.data[0].iva.porcentaje,
           descuento: res.data[0].id_descuento == null ? '0' : res.data[0].descuento.porcentaje,
-          total: this.calcularPrecio(res.data[0].created_at, res.data[0].tipo_vehiculo, res.data[0].iva.porcentaje, res.data[0].cliente.asociado),
+          total: this.calcularPrecio(res.data[0].created_at, res.data[0].tipo_vehiculo, res.data[0].iva.porcentaje, res.data[0].cliente.asociado, res.data[0].id_descuento == null ? '0' : res.data[0].descuento.porcentaje),
           usuario_logeado: document.getElementsByName('correo_usuario')[0].content
         }
       })
     },
-    calcularPrecio(fechaCreado, tipoVehiculo, iva, esCliente) {
+    calcularPrecio(fechaCreado, tipoVehiculo, iva, esCliente, descuento) {
       var fecha1 = moment(new Date())
       var fecha2 = moment(fechaCreado) 
       let tiempo_tascurrido = moment.duration(fecha1.diff(fecha2))._data
 
       if(esCliente == '3'){
-        console.log('es empleado')
         return 0
       }
 
       if(esCliente == '2'){
-        // flata el descuento
         if(tipoVehiculo == 1){
           let precio_ano =  tiempo_tascurrido.years * this.precios.ano_moto
           let precio_mes =  tiempo_tascurrido.months * this.precios.mes_moto
@@ -276,12 +297,8 @@ export default {
           let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_moto
           let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_moto
           let total = (((precio_ano + precio_mes + precio_dias)  +  ((precio_ano + precio_mes + precio_dias) * iva) / 100))
-          console.log(tiempo_tascurrido)
-          console.log('moto es cliente')
-          console.log(total)
-          return total
+          return total.toFixed(0)
         } else {
-        // flata el descuento
           let precio_ano =  tiempo_tascurrido.years * this.precios.ano_carro
           let precio_mes =  tiempo_tascurrido.months * this.precios.mes_carro
           let precio_dias =  tiempo_tascurrido.days * this.precios.dia_carro
@@ -289,83 +306,90 @@ export default {
           let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_carro
           let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_carro
           let total = (((precio_ano + precio_mes + precio_dias)  +  ((precio_ano + precio_mes + precio_dias) * iva) / 100))
-          console.log(tiempo_tascurrido)
-          console.log('carro es cliente')
-          console.log(total)
-          return total
+          return total.toFixed(0)
         }
       }
       if(esCliente == '1'){
         if(tipoVehiculo == 1){
         // flata el descuento
-          let precio_ano =  tiempo_tascurrido.years * (8640 * this.precios.hora_moto)
-          let precio_mes =  tiempo_tascurrido.months * (720 * this.precios.hora_moto)
-          let precio_dias =  tiempo_tascurrido.days * (24 * this.precios.hora_moto)
-          let precio_horas =  tiempo_tascurrido.hours * this.precios.hora_moto
-          let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_moto
-          let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_moto
-          let total = ((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) + (((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva)/100))
-          console.log(tiempo_tascurrido)
-          console.log('moto no cliente')
-          console.log(total)
-          return total
-        } else {
+        let precio_ano =  tiempo_tascurrido.years * (8640 * this.precios.hora_moto)
+        let precio_mes =  tiempo_tascurrido.months * (720 * this.precios.hora_moto)
+        let precio_dias =  tiempo_tascurrido.days * (24 * this.precios.hora_moto)
+        let precio_horas =  tiempo_tascurrido.hours * this.precios.hora_moto
+        let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_moto
+        let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_moto
+        let total = ((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) + (((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva)/100))
+        let total_a_pagar = total-((total*descuento)/100).toFixed(0)
+        return total_a_pagar
+      } else {
         // flata el descuento
-          let precio_ano =  tiempo_tascurrido.years * (8640 * this.precios.hora_carro)
-          let precio_mes =  tiempo_tascurrido.months * (720 * this.precios.hora_carro)
-          let precio_dias =  tiempo_tascurrido.days * (24 * this.precios.hora_carro)
-          let precio_horas =  tiempo_tascurrido.hours * this.precios.hora_carro
-          let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_carro
-          let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_carro
-          let total = ((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) + (((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva)/100))
-          console.log(tiempo_tascurrido)
-          console.log(tiempo_tascurrido)
-          console.log('carro no cliente')
-          console.log(total)
-          return total
-        }
+        let precio_ano =  tiempo_tascurrido.years * (8640 * this.precios.hora_carro)
+        let precio_mes =  tiempo_tascurrido.months * (720 * this.precios.hora_carro)
+        let precio_dias =  tiempo_tascurrido.days * (24 * this.precios.hora_carro)
+        let precio_horas =  tiempo_tascurrido.hours * this.precios.hora_carro
+        let precio_minutos =  tiempo_tascurrido.minutes * this.precios.minuto_carro
+        let precio_segundos =  tiempo_tascurrido.seconds * this.precios.segundo_carro
+        let total = ((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) + (((precio_ano + precio_mes + precio_dias + precio_horas + precio_minutos + precio_segundos) * iva)/100))
+        let total_a_pagar = total-((total*descuento)/100).toFixed(0)
+        return total_a_pagar
       }
-    },
-    async listar_precios() {
-      await axios.get(`${this.route2}lista-precios`).then(res => {
-        this.precios = {
-          id: res.data.id,
-          ano_carro: res.data[0].ano_carro,
-          mes_carro: res.data[0].mes_carro,
-          dia_carro: res.data[0].dia_carro,
-          hora_carro: res.data[0].hora_carro,
-          minuto_carro: res.data[0].minuto_carro,
-          segundo_carro: res.data[0].segundo_carro,
-          ano_moto: res.data[0].ano_moto,
-          mes_moto: res.data[0].mes_moto,
-          dia_moto: res.data[0].dia_moto,
-          hora_moto: res.data[0].hora_moto,
-          minuto_moto: res.data[0].minuto_moto,
-          segundo_moto: res.data[0].segundo_moto
-        }
-      })
-    },
-    async facturar() { 
-      await axios.put(`${this.route}${this.id_factura}/actualizar-estado-factura`, this.model)
-      this.rows = []
-      await this.listarFacturas()
-      this.$notify({
-        title: 'Success',
-        message: 'Se cobro la correctamente',
-        type: 'success'
-      });
-      $('#CobrarFactura').modal('hide')
     }
   },
-  watch: {
-    id_factura: function (val) {
-      this.filtrar(val)
-    },
-  },  
-  mounted(){
-    this.listarFacturas()
-    this.listar_precios()
-  }
+  async listar_precios() {
+    await axios.get(`${this.route2}lista-precios`).then(res => {
+      this.precios = {
+        id: res.data.id,
+        ano_carro: res.data[0].ano_carro,
+        mes_carro: res.data[0].mes_carro,
+        dia_carro: res.data[0].dia_carro,
+        hora_carro: res.data[0].hora_carro,
+        minuto_carro: res.data[0].minuto_carro,
+        segundo_carro: res.data[0].segundo_carro,
+        ano_moto: res.data[0].ano_moto,
+        mes_moto: res.data[0].mes_moto,
+        dia_moto: res.data[0].dia_moto,
+        hora_moto: res.data[0].hora_moto,
+        minuto_moto: res.data[0].minuto_moto,
+        segundo_moto: res.data[0].segundo_moto
+      }
+    })
+  },
+  async facturar() { 
+    await axios.put(`${this.route}${this.id_factura}/actualizar-estado-factura`, this.model)
+    this.rows = []
+    await this.listarFacturas()
+    this.$notify({
+      title: 'Success',
+      message: 'Se cobro la correctamente',
+      type: 'success'
+    });
+    $('#CobrarFactura').modal('hide')
+  },
+  vueltos() {
+    if(this.calcular.pago != '' && this.calcular.cantidad != ''){
+      let operacion = parseFloat(this.calcular.pago) - parseFloat(this.calcular.cantidad)
+      if(parseFloat(operacion) >= 0){
+        this.calcular.vueltos = operacion
+      } else {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Hay un error con los valores',
+        });
+      }
+    } else {
+      this.calcular.vueltos = 0
+    }
+  },
+},
+watch: {
+  id_factura: function (val) {
+    this.filtrar(val)
+  },
+},  
+mounted(){
+  this.listarFacturas()
+  this.listar_precios()
+}
 };
 </script>
 

@@ -3,10 +3,10 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title titulo">Iva</h5>
+        <marquee class="marq" direction="left">Recuerde que siempre debe haber un registro de iva, para el uso del sistema</marquee>
         <div class="d-flex justify-content-end">
           <el-button type="primary" icon="el-icon-plus" circle data-toggle="modal" data-target="#CrearIva" @click="limpiar()"></el-button>
         </div>
-        <br>
         <div class="card-body">
           <div class="row mt-xl-n5">
             <div v-for="iva in iva" class="card mx-3 my-2" style="width: 16rem">
@@ -155,5 +155,11 @@ export default {
   border-left: 6px solid blue;
   background-color: lightgrey;
   font-family: cursive, sans-serif;
+}
+.marq{
+  font-size: 30px;
+  font-weight: 800;
+  color: #8ebf42;
+  font-family: sans-serif;
 }
 </style>

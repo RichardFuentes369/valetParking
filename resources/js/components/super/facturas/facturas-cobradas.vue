@@ -11,11 +11,11 @@
                 <th scope="col">ID</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Placa</th>
-                <th scope="col">Total Pago</th>
-                <th scope="col">Tipo Cliente</th>
                 <th scope="col">Creado Por</th>
                 <th scope="col">Fecha de Creación</th>
+                <th scope="col">Cobrado Por</th>
                 <th scope="col">Fecha de Pago</th>
+                <th scope="col">Total Pago</th>
               </tr>
             </thead>
             <tbody>
@@ -24,11 +24,11 @@
                 <td scope="col">{{cobrada.id}}</td>
                 <td scope="col">{{cobrada.cliente.nombre}} {{cobrada.cliente.apellido}}</td>
                 <td scope="col">{{cobrada.placa}}</td>
-                <td scope="col">{{cobrada.cliente.asociado}}</td>
-                <td scope="col">{{cobrada.total}}</td>
                 <th scope="col">{{cobrada.created_by}}</th>
                 <td scope="col">{{cobrada.created_at}}</td>
                 <td scope="col">{{cobrada.updated_by}}</td>
+                <td scope="col">{{cobrada.updated_at}}</td>
+                <td scope="col">{{cobrada.total}}</td>
               </tr> 
             </tbody>
           </table>
