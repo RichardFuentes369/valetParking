@@ -21,11 +21,16 @@
           <router-link :to="{ name: 'cobrar-factura'}" class="nav-link">Cobrar Factura</router-link>
         </el-menu-item>
       </el-submenu>
-      <!-- configuracion -->
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">Configurar Cuenta</span>
-      </el-menu-item>
+      <!-- configuracion configurarE-->
+      <el-submenu index="2">
+        <template slot="title">
+          <i class="el-icon-setting"></i>
+          <span slot="title">Configurar</span>
+        </template>
+        <el-menu-item index="2-1">
+          <router-link :to="{ name: 'configurar-empleado'}" class="nav-link">Configurar</router-link>
+        </el-menu-item>
+      </el-submenu>
     </el-menu>
   </div>
 </template>

@@ -38,6 +38,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 */
 
 const app = new Vue({
-    el: '#app',
-    router
+	el: '#app',
+	router
 });
