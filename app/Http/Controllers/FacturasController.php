@@ -56,7 +56,7 @@ class FacturasController extends Controller
 		}
 	}
 
-	public function lista_detallada($id){
+	public function listaDetallada($id){
 		try {
 			$consulta = facturas::where('id', $id)->with('cliente', 'descuento', 'iva')->get();
 			return $consulta;
@@ -71,8 +71,35 @@ class FacturasController extends Controller
 			$actualziar_registro->total = $request->total;
 			$actualziar_registro->estado = '0';
 			$actualziar_registro->updated_by = $request->usuario_logeado;
+			if($actualziar_registro->corte_mes = '1'){
+				$actualziar_registro->corte_mes = '0';
+			}
 			$actualziar_registro->save();
 			return 'cobro exitosamente';
+		} catch (Exception $e) {
+			return $e;
+		}
+	}
+
+	public function marcarCorte(){
+		try {
+			$actualziar_registros = facturas::where('corte_mes','0')->get();
+			foreach ($actualziar_registros as $actualziar_registros) {
+				$actualziar_registros->corte_mes = '1';
+				$actualziar_registros->save();
+			}
+		} catch (Exception $e) {
+			return $e;
+		}
+	}
+
+	public function listarFacturas(){
+		try {
+			$consulta = DB::SELECT("SELECT usu.nombre, 
+				(SELECT COUNT(fac.id) FROM facturas AS fac WHERE fac.updated_by = usu.email AND fac.corte_mes = '0') AS cobradas, 
+				(SELECT ROUND(SUM(fac.total),2) FROM facturas AS fac WHERE fac.updated_by = usu.email AND fac.corte_mes = '0') AS total FROM usuarios AS usu
+				WHERE usu.id_rol = 2");
+			return $consulta;
 		} catch (Exception $e) {
 			return $e;
 		}

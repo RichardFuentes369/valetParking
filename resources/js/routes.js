@@ -13,6 +13,7 @@ import Iva from './components/super/iva'
 import InformacionA from './components/super/informacion'
 import Rol from './components/super/rol'
 import Facturas from './components/super/facturas'
+import Cortes from './components/super/cortes'
 import Empleados from './components/super/empleados'
 import ConfigurarS from './components/super/configurar'
 
@@ -68,6 +69,11 @@ export default new Router({
     path: '/facturas',
     name: 'facturas',
     component: Facturas
+  },
+  {
+    path: '/corte',
+    name: 'corte',
+    component: Cortes
   },
   {
     path: '/empleados',

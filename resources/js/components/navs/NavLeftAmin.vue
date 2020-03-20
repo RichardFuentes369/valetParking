@@ -41,6 +41,9 @@
           <router-link :to="{ name: 'facturas'}" class="nav-link">Facturas</router-link>
         </el-menu-item>
         <el-menu-item index="4-4-1" class="nav-item">
+          <router-link :to="{ name: 'corte'}" class="nav-link">Marcar Corte</router-link>
+        </el-menu-item>     
+        <el-menu-item index="4-4-1" class="nav-item">
           <router-link :to="{ name: 'empleados'}" class="nav-link">Empleado</router-link>
         </el-menu-item>
       </el-submenu>
